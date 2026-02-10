@@ -6,7 +6,11 @@ export default {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'inter': ['var(--font-inter)', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

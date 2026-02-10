@@ -27,7 +27,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-inter ${
         isMenuOpen
           ? 'bg-[#1E1E1E] py-6'
           : scrolled
@@ -37,9 +37,9 @@ export function Navbar() {
       style={scrolled && !isMenuOpen ? { backgroundColor: 'rgba(30, 30, 30, 0.95)' } : {}}
     >
       {/* Desktop Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-2">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12 mt-2">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2 ml-4">
+          <div className="flex items-center space-x-2 ml-8">
             <img 
               src="/logos/CMD logo.png" 
               alt="Ceylon My Dream Logo" 
@@ -48,12 +48,12 @@ export function Navbar() {
           </div>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center space-x-8 px-6 py-3 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm">
+          <div className="hidden lg:flex items-center space-x-8 px-6 py-3 rounded-full border border-white/20 bg-white/15 backdrop-blur-lg mr-8">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className={`text-md font-medium transition-colors duration-200 relative ${
+                className={`text-md font-inter font-medium transition-colors duration-200 relative ${
                   link.active
                     ? 'text-white'
                     : 'text-white/80 hover:text-white'
@@ -97,7 +97,7 @@ export function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`block text-base font-medium ${
+                  className={`block text-base font-inter font-bold ${
                     link.active
                       ? 'text-[#f59e0b]'
                       : 'text-white/80'
