@@ -95,7 +95,7 @@ export default function AboutUsPage() {
                 transition={{ duration: 0.8, delay: 0.5 }}
                 className="text-sm md:text-md leading-relaxed text-[#7A7777] font-inter font-regular"
               >
-                Travel is more than vising new places. It's about creating stories that stay with you forever. At Ceylon My Dream, we turn every journey into an unforgettable experience. From the very beginning, our mission has been to craft personalized trips that celebrate culture, adventure and connection.
+                Travel is more than visiting new places. It&apos;s about creating stories that stay with you forever. At Ceylon My Dream, we turn every journey into an unforgettable experience. From the very beginning, our mission has been to craft personalized trips that celebrate culture, adventure and connection.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
