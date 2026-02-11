@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -42,9 +43,11 @@ export function Navbar() {
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12 mt-2">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2 ml-8">
-            <img 
+            <Image 
               src="/logos/CMD logo.png" 
               alt="Ceylon My Dream Logo" 
+              width={96}
+              height={96}
               className="h-12 scale-[1.5] w-auto"
             />
           </div>

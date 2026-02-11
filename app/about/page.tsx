@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { aboutData } from '../lib/aboutData';
+import Image from 'next/image';
 
 export default function AboutUsPage() {
   return (
@@ -16,41 +17,44 @@ export default function AboutUsPage() {
         {/* Hero */}
         <section className="mt-4 px-4 sm:px-6 lg:px-12">
           <div className="max-w-8xl mx-auto relative h-[50vh] min-h-[500px] overflow-hidden rounded-[1.5rem]">
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{
-              backgroundImage: `url('https://plus.unsplash.com/premium_photo-1687653078299-ae7fc1453bc4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
-              }}
-            />
-        
-            <div className="absolute inset-0 bg-black/40" />
-              <div className="relative h-full flex items-center justify-center px-4 text-center">
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: 40,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  transition={{
-                    duration: 0.8,
-                    ease: 'easeOut',
-                  }}
-                  className="max-w-4xl mx-auto"
-                >
-                  <h1 className="mt-10 text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
-                    YOUR JOURNEY
-                    <br />
-                    <span className="block mt-2">OUR PASSION</span>
-                  </h1>
-                  <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-xl">
-                    Discover the inspiring story behind Ceylon My Dream a place where travel dreams come true, unforgettable journeys begin and every destination holds a new adventure waiting
-                  </p>
-                </motion.div>
-              </div>
+            <div className="absolute inset-0">
+              <Image
+                src="https://plus.unsplash.com/premium_photo-1687653078299-ae7fc1453bc4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Hero background"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
+
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="relative h-full flex items-center justify-center px-4 text-center">
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 40,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.8,
+                  ease: 'easeOut',
+                }}
+                className="max-w-4xl mx-auto"
+              >
+                <h1 className="mt-10 text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
+                  YOUR JOURNEY
+                  <br />
+                  <span className="block mt-2">OUR PASSION</span>
+                </h1>
+                <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-xl">
+                  Discover the inspiring story behind Ceylon My Dream, a place where travel dreams come true, unforgettable journeys begin, and every destination holds a new adventure waiting
+                </p>
+              </motion.div>
+            </div>
+          </div>
         </section>
 
         {/* Get To Know About Us */}
@@ -95,7 +99,7 @@ export default function AboutUsPage() {
                 transition={{ duration: 0.8, delay: 0.5 }}
                 className="text-sm md:text-md leading-relaxed text-[#7A7777] font-inter font-regular"
               >
-                Travel is more than visiting new places. It&apos;s about creating stories that stay with you forever. At Ceylon My Dream, we turn every journey into an unforgettable experience. From the very beginning, our mission has been to craft personalized trips that celebrate culture, adventure and connection.
+                Travel is more than visiting new places. It&#39;s about creating stories that stay with you forever. At Ceylon My Dream, we turn every journey into an unforgettable experience. From the very beginning, our mission has been to craft personalized trips that celebrate culture, adventure and connection.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -166,11 +170,15 @@ export default function AboutUsPage() {
         {/* Partners Strip */}
         <section className="relative py-12 overflow-hidden">
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1424581342241-2b1aba4d3462?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
-            }}
-          />
+            className="absolute inset-0"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1424581342241-2b1aba4d3462?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Partners background"
+              fill
+              className="object-cover"
+            />
+          </div>
           <div className="absolute inset-0 bg-black/5" />
           <div className="relative">
             <motion.div 
@@ -190,10 +198,12 @@ export default function AboutUsPage() {
               {[...aboutData.partners, ...aboutData.partners].map((partner, index) => (
                 <div key={`${partner.name}-${index}`} className="flex items-center gap-2 opacity-70 flex-shrink-0">
                   <div className="flex h-8 w-8 items-center justify-center">
-                    <img 
+                    <Image 
                       src={partner.logo} 
                       alt={partner.name}
-                      className="h-16 w-auto object-contain scale-[4]"
+                      width={64}
+                      height={64}
+                      className="object-contain scale-[4]"
                     />
                   </div>
                 </div>
@@ -219,12 +229,13 @@ export default function AboutUsPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="relative overflow-hidden rounded-2xl"
+                className="relative overflow-hidden rounded-2xl h-[560px]"
               >
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1755099342998-9ce9af7cd9e1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   alt="Sri Lanka Tea Plantation"
-                  className="w-full h-140 object-cover"
+                  fill
+                  className="object-cover"
                 />
               </motion.div>
               
@@ -245,12 +256,13 @@ export default function AboutUsPage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8 }}
-                  className="relative overflow-hidden rounded-2xl"
+                  className="relative overflow-hidden rounded-2xl h-[230px]"
                 >
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1526786397950-a1cda63d1ab2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt="Sri Lanka Beach Resort"
-                    className="w-full h-84 object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </motion.div>
                 
@@ -261,7 +273,7 @@ export default function AboutUsPage() {
                   transition={{ duration: 0.6, delay: 0.8 }}
                   className="text-black leading-relaxed font-inter font-regular text-justify between"
                 >
-                  No matter your travel style, you'll find yourself immersed in Sri Lanka's rich culture, vibrant landscapes, and local charm. Whether you're seeking quiet reflection, cultural depth, or pure adventure—your journey with Ceylon My Dream becomes a personal story worth telling.
+                  No matter your travel style, you&apos;ll find yourself immersed in Sri Lanka&apos;s rich culture, vibrant landscapes, and local charm. Whether you&apos;re seeking quiet reflection, cultural depth, or pure adventure—your journey with Ceylon My Dream becomes a personal story worth telling.
                 </motion.p>
               </div>
               
@@ -274,7 +286,7 @@ export default function AboutUsPage() {
                   transition={{ duration: 0.6, delay: 0.6 }}
                   className="text-[#7A7777] leading-relaxed font-inter font-regular text-justify between"
                 >
-                  Moreover, our deep local knowledge means you don't just see the sights — you experience the soul of the island. From wandering through ancient cities and lush tea plantations to witnessing wildlife in their natural habitat and relaxing on secluded coastal shores, every moment feels curated just for you.
+                  Moreover, our deep local knowledge means you don&apos;t just see the sights — you experience the soul of the island. From wandering through ancient cities and lush tea plantations to witnessing wildlife in their natural habitat and relaxing on secluded coastal shores, every moment feels curated just for you.
                 </motion.p>
               </div>
             </div>

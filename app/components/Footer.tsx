@@ -10,6 +10,7 @@ import {
   Mail,
   MapPin,
 } from 'lucide-react';
+import Image from 'next/image';
 
 const quickLinks = [
   'Home',
@@ -42,9 +43,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="space-y-6">
-            <img 
+            <Image 
               src="/logos/CMD logo.png" 
               alt="Ceylon My Dream Logo" 
+              width={64}
+              height={64}
               className="h-16 w-auto"
             />
             <p className="text-[#B0AEAE] font-inter font-regular text-sm leading-relaxed">
