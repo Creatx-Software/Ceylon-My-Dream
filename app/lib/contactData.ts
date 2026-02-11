@@ -54,12 +54,6 @@ export const contactSectionText = {
   whyReachOutTitle: 'Why reach out to us?',
 };
 
-/* ─── Hero Section Text ─── */
-export const heroText = {
-  title: 'GET IN TOUCH',
-  subtitle: 'WITH US',
-};
-
 /* ─── Form Labels ─── */
 export const formFields = {
   name: 'Name',
@@ -77,12 +71,6 @@ export const mapSection = {
 
 /* ─── Contact Info Cards Title ─── */
 export const contactInfoTitle = 'Our Contact Information';
-
-/* ─── Hero Image URL ─── */
-export const heroImageUrl = 'https://plus.unsplash.com/premium_photo-1664910880748-06b4260f1571?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
-
-/* ─── Form Background Image URL ─── */
-export const formBackgroundImageUrl = 'https://images.unsplash.com/photo-1652854762897-f0ef1631eb91?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
 
 /* ─── Form Title ─── */
 export const formTitle = 'Send Us A Message';

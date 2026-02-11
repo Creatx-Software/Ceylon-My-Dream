@@ -3,21 +3,23 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
-  { name: 'Home', href: '#' },
-  { name: 'About Us', href: '#' },
+  { name: 'Home', href: '/' },
+  { name: 'About Us', href: '/about' },
   { name: 'Tours', href: '#' },
   { name: 'Destinations', href: '#' },
   { name: 'Adventure', href: '#' },
   { name: 'Gallery', href: '#' },
   { name: 'Blog', href: '#' },
-  { name: 'Contact Us', href: '#', active: true }
+  { name: 'Contact Us', href: '/contact' }
 ];
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -49,22 +51,25 @@ export function Navbar() {
 
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center space-x-8 px-6 py-3 rounded-full border border-white/20 bg-white/15 backdrop-blur-lg mr-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-md font-inter font-medium transition-colors duration-200 relative ${
-                  link.active
-                    ? 'text-white'
-                    : 'text-white/80 hover:text-white'
-                }`}
-              >
-                {link.name}
-                {link.active && (
-                  <span className="absolute bottom-[-2px] left-0 right-0 h-[2px] bg-white"></span>
-                )}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`text-md font-inter font-medium transition-colors duration-200 relative ${
+                    isActive
+                      ? 'text-white'
+                      : 'text-white/80 hover:text-white'
+                  }`}
+                >
+                  {link.name}
+                  {isActive && (
+                    <span className="absolute bottom-[-2px] left-0 right-0 h-[2px] bg-white"></span>
+                  )}
+                </a>
+              );
+            })}
           </div>
 
           {/* Mobile Menu Button */}
@@ -93,20 +98,23 @@ export function Navbar() {
           >
             {/* Navigation links */}
             <div className="px-4 py-6 space-y-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className={`block text-base font-inter font-bold ${
-                    link.active
-                      ? 'text-[#f59e0b]'
-                      : 'text-white/80'
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className={`block text-base font-inter font-bold ${
+                      isActive
+                        ? 'text-[#f59e0b]'
+                        : 'text-white/80'
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
         )}

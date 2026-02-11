@@ -1,4 +1,4 @@
-import { ContactPage } from './pages/ContactPage';
+import ContactPage from './contact/page';
 
 export default function Home() {
   return <ContactPage />;
