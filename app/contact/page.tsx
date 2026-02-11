@@ -65,7 +65,7 @@ export default function ContactPage() {
 
         {/* ─── CONTACT INFO CARDS ─── */}
         <section className="py-20 px-4 sm:px-6 lg:px-12 bg-white">
-          <div className="max-w-8xl mx-auto">
+          <div className="container mx-auto">
             <motion.h2
               initial={{
                 opacity: 0,
@@ -134,7 +134,7 @@ export default function ContactPage() {
 
         {/* ─── CONTACT FORM + INFO ─── */}
         <section className="py-12 px-4 sm:px-6 lg:px-12 bg-white overflow-hidden">
-          <div className="max-w-8xl mx-auto">
+          <div className="container mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-20 items-center">
               {/* Form */}
               <motion.div
@@ -229,7 +229,7 @@ export default function ContactPage() {
                 }}
               >
                 <div>
-                  <h2 className="text-4xl font-inter font-semibold text-[#4B485B] mb-6 leading-tight">
+                  <h2 className="text-3xl md:text-5xl font-inter font-semibold text-[#4B485B] mb-6 leading-tight">
                     {contactSectionText.heading}
                   </h2>
                   <p className="text-[#7A7777] font-inter font-regular text-lg leading-relaxed">
@@ -271,7 +271,7 @@ export default function ContactPage() {
               viewport={{
                 once: true,
               }}
-              className="text-3xl md:text-4xl font-inter font-semibold text-[#4B485B] text-center mb-12"
+              className="text-3xl md:text-5xl font-inter font-semibold text-[#4B485B] text-center mb-12"
             >
               {mapSection.title}
             </motion.h2>

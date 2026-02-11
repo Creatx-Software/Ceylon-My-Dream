@@ -55,7 +55,7 @@ export default function AboutUsPage() {
 
         {/* Get To Know About Us */}
         <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12">
-          <div className="grid items-start gap-10 lg:grid-cols-2">
+          <div className="container mx-auto grid items-start gap-16 lg:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -199,6 +199,85 @@ export default function AboutUsPage() {
                 </div>
               ))}
             </motion.div>
+          </div>
+        </section>
+
+        {/* Why We Stand Out */}
+        <section className="bg-background py-16 md:py-24">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="animate-on-scroll mb-12 text-center">
+              <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]">Why We Stand Out</span>
+              <h2 className="mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl">
+                Discover the Heart of Sri Lanka with<br className="hidden sm:block" /> Service You Can Rely On
+              </h2>
+            </div>
+          
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
+              {/* Split 1: 1st Image */}
+              <motion.div 
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="relative overflow-hidden rounded-2xl"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1755099342998-9ce9af7cd9e1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Sri Lanka Tea Plantation"
+                  className="w-full h-140 object-cover"
+                />
+              </motion.div>
+              
+              {/* Split 2: 1st Paragraph, 2nd Image, Last Paragraph */}
+              <div className="space-y-6">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="text-black leading-relaxed font-inter font-regular text-justify between"
+                >
+                  At Ceylon My Dream, travelers discover more than just a destination — they uncover the true essence of Sri Lanka. As a trusted Sri Lanka travel agency, we open doors to unforgettable memories, authentic encounters, and meaningful moments that stay with you long after the journey ends.
+                </motion.p>
+                
+                <motion.div 
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="relative overflow-hidden rounded-2xl"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1526786397950-a1cda63d1ab2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Sri Lanka Beach Resort"
+                    className="w-full h-84 object-cover"
+                  />
+                </motion.div>
+                
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  className="text-black leading-relaxed font-inter font-regular text-justify between"
+                >
+                  No matter your travel style, you'll find yourself immersed in Sri Lanka's rich culture, vibrant landscapes, and local charm. Whether you're seeking quiet reflection, cultural depth, or pure adventure—your journey with Ceylon My Dream becomes a personal story worth telling.
+                </motion.p>
+              </div>
+              
+              {/* Split 3: 2nd Paragraph */}
+              <div className="flex items-center justify-center mt-0 lg:mt-64">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  className="text-[#7A7777] leading-relaxed font-inter font-regular text-justify between"
+                >
+                  Moreover, our deep local knowledge means you don't just see the sights — you experience the soul of the island. From wandering through ancient cities and lush tea plantations to witnessing wildlife in their natural habitat and relaxing on secluded coastal shores, every moment feels curated just for you.
+                </motion.p>
+              </div>
+            </div>
           </div>
         </section>
 
