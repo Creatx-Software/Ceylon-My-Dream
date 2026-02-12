@@ -25,7 +25,7 @@ export default function ContactPage() {
       {/* ─── NAVBAR ─── */}
       <Navbar />
 
-      <main>
+      <main className="mb-0">
         {/* ─── HERO ─── */}
         <section className="mt-4 px-4 sm:px-6 lg:px-12">
           <div className="max-w-8xl mx-auto relative h-[50vh] min-h-[500px] overflow-hidden rounded-[1.5rem]">
@@ -64,7 +64,7 @@ export default function ContactPage() {
         </section>
 
         {/* ─── CONTACT INFO CARDS ─── */}
-        <section className="py-20 px-4 sm:px-6 lg:px-12 bg-white">
+        <section className="py-20 bg-white">
           <div className="container mx-auto">
             <motion.h2
               initial={{
@@ -133,7 +133,7 @@ export default function ContactPage() {
         </section>
 
         {/* ─── CONTACT FORM + INFO ─── */}
-        <section className="py-12 px-4 sm:px-6 lg:px-12 bg-white overflow-hidden">
+        <section className="py-12 bg-white overflow-hidden">
           <div className="container mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-20 items-center">
               {/* Form */}
@@ -257,8 +257,8 @@ export default function ContactPage() {
         </section>
 
         {/* ─── MAP SECTION ─── */}
-        <section className="py-16 bg-white">
-          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12">
+        <section className="pt-16 bg-white mb-0 pb-0">
+          <div className="max-w-8xl mx-auto">
             <motion.h2
               initial={{
                 opacity: 0,
@@ -291,7 +291,7 @@ export default function ContactPage() {
               transition={{
                 duration: 0.8,
               }}
-              className="w-full h-[400px] rounded-xl overflow-hidden shadow-lg border border-gray-100"
+              className="w-full h-[400px] overflow-hidden shadow-lg border border-gray-100"
             >
               <iframe
                 src={mapSection.mapEmbedUrl}

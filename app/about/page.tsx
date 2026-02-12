@@ -60,7 +60,7 @@ export default function AboutUsPage() {
         </section>
 
         {/* Get To Know About Us */}
-        <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12">
+        <section className="py-16 md:py-20">
           <div className="container mx-auto grid items-start gap-16 lg:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -60 }}
@@ -215,7 +215,7 @@ export default function AboutUsPage() {
         </section>
 
         {/* Why We Stand Out */}
-        <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12">
+        <section className="py-16 md:py-20">
           <div className="container mx-auto">
             <div className="animate-on-scroll mb-12 text-center">
               <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]">Why We Stand Out</span>
@@ -296,7 +296,7 @@ export default function AboutUsPage() {
         </section>
 
         {/* Our Team */}
-        <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12 -mt-10">
+        <section className="py-16 md:py-20 -mt-10">
           <div className="container mx-auto">
             <div className="mb-12 grid gap-16 lg:grid-cols-2">
               <div className="animate-on-scroll-left">

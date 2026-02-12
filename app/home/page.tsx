@@ -169,7 +169,7 @@ export default function HomePage() {
         </section>
 
         {/* About Us */}
-        <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-12">
+        <section className="py-16 md:py-20">
           <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Side Content */}
             <motion.div
