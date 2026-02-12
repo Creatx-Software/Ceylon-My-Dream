@@ -1,5 +1,5 @@
-import ContactPage from './contact/page';
+import HomePage from './home/page';
 
 export default function Home() {
-  return <ContactPage />;
+  return <HomePage />;
 }
