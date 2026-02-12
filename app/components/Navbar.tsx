@@ -55,7 +55,7 @@ export function Navbar() {
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center space-x-8 px-6 py-3 rounded-full border border-white/20 bg-white/15 backdrop-blur-lg mr-8">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = pathname === link.href || (link.name === 'Home' && pathname === '/');
               return (
                 <a
                   key={link.name}
@@ -102,7 +102,7 @@ export function Navbar() {
             {/* Navigation links */}
             <div className="px-4 py-6 space-y-4">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href;
+                const isActive = pathname === link.href || (link.name === 'Home' && pathname === '/');
                 return (
                   <a
                     key={link.name}
