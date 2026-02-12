@@ -16,6 +16,9 @@ import { Calendar } from '../components/ui/Calendar';
 
 export default function HomePage() {
   const [heroIndex, setHeroIndex] = useState(0);
+  const [checkIn, setCheckIn] = useState<Date | undefined>(undefined);
+  const [checkOut, setCheckOut] = useState<Date | undefined>(undefined);
+  const [pax, setPax] = useState(1);
 
   const goNext = useCallback(() => setHeroIndex((i) => (i + 1) % homeData.heroSlides.length), []);
   const goPrev = useCallback(() => setHeroIndex((i) => (i - 1 + homeData.heroSlides.length) % homeData.heroSlides.length), []);
@@ -25,12 +28,7 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, [goNext]);
 
-  const [activeTab, setActiveTab] = useState("All");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [checkIn, setCheckIn] = useState<Date>();
-  const [checkOut, setCheckOut] = useState<Date>();
-  const [pax, setPax] = useState(1);
-
+  
   const handleCheckInSelect = (date: Date | Date[] | undefined) => {
     if (date instanceof Date) {
       setCheckIn(date);
