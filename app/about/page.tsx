@@ -218,10 +218,24 @@ export default function AboutUsPage() {
         <section className="py-16 md:py-20">
           <div className="container mx-auto">
             <div className="animate-on-scroll mb-12 text-center">
-              <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]">Why We Stand Out</span>
-              <h2 className="container mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl md:max-w-4xl items-center justify-center mx-auto">
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]"
+              >
+                Why We Stand Out
+              </motion.span>
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="container mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl md:max-w-4xl items-center justify-center mx-auto"
+              >
                 Discover the Heart of Sri Lanka with Service You Can Rely On
-              </h2>
+              </motion.h2>
             </div>
           
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import Image from 'next/image';
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Calendar as CalendarIcon, Users } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Calendar as CalendarIcon, Users, ArrowRight, UserPen, HeartHandshake, Star, ChartNoAxesCombined, Languages } from 'lucide-react';
 import { useState, useEffect, useCallback } from "react";
 import { homeData } from '../lib/homeData';
 import { Button } from '../components/ui/ButtonMain';
@@ -19,6 +19,7 @@ export default function HomePage() {
   const [checkIn, setCheckIn] = useState<Date | undefined>(undefined);
   const [checkOut, setCheckOut] = useState<Date | undefined>(undefined);
   const [pax, setPax] = useState(1);
+  const [activeTab, setActiveTab] = useState("All");
 
   const goNext = useCallback(() => setHeroIndex((i) => (i + 1) % homeData.heroSlides.length), []);
   const goPrev = useCallback(() => setHeroIndex((i) => (i - 1 + homeData.heroSlides.length) % homeData.heroSlides.length), []);
@@ -109,7 +110,13 @@ export default function HomePage() {
               </motion.div>
               
               {/* Search Bar - Independent from slides */}
-              <div className="absolute bottom-10 md:bottom-16 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4 z-30">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="absolute bottom-10 md:bottom-16 left-0 right-0 mx-auto w-full max-w-3xl px-4 z-30"
+              >
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-0 bg-white rounded-xl md:rounded-full p-3 sm:p-3 shadow-xl">
                   {/* Check In */}
                   <Popover>
@@ -163,7 +170,7 @@ export default function HomePage() {
                     Inquiry Now
                   </Button>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -300,6 +307,278 @@ export default function HomePage() {
                 className="w-full h-auto max-w-xl mx-auto"
               />
             </motion.div>
+          </div>
+        </section>
+
+        {/* Visit Destinations */}
+        <section className="py-16 md:py-20 -mt-10">
+          <div className="container mx-auto">
+            {/* Top Section - Text and Button */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-12">
+              {/* Left Side Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B] inline-block"
+                >
+                  MUST VISIT DESTINATIONS
+                </motion.span>
+                <motion.h2
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl"
+                >
+                  Explore Beautiful Places Now
+                </motion.h2>
+                
+                <motion.p
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                  className="mt-10 text-lg text-[#0C111F] leading-relaxed font-inter font-regular"
+                >
+                  Discover Sri Lanka — from ancient cities and rich culture to golden beaches and misty hill country.
+                </motion.p>
+              </motion.div>
+              
+              {/* Right Side - Explore More Button */}
+              <motion.div
+                initial={{ opacity: 0, x: 60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+                className="flex justify-center lg:justify-end"
+              >
+                <Button className="rounded-full px-8 py-3 text-base font-inter font-semibold">
+                  Explore More <ArrowRight size={14} className="ml-2" />
+                </Button>
+              </motion.div>
+            </div>
+            
+            {/* Bottom Section - Destination Cards (Full Width) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {homeData.destinations.map((destination, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
+                  className={`relative group cursor-pointer overflow-hidden rounded-3xl ${
+                    index === 0 
+                      ? 'md:row-span-2' 
+                      : index === 4
+                      ? 'md:row-span-2 md:col-start-2'
+                      : ''
+                  }`}
+                >
+                  <div className={`relative ${
+                    index === 0 || index === 4 
+                      ? 'h-96 md:h-full' 
+                      : 'h-48 md:h-48'
+                  }`}>
+                    <Image
+                      src={destination.image}
+                      alt={destination.name}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-transparent" />
+                    <div className="absolute bottom-3 left-3 right-3 p-3 bg-white/20 backdrop-blur-md rounded-xl">
+                      <h3 className="text-white text-xl font-inter font-medium">
+                        {destination.name}
+                      </h3>
+                      <a
+                        href={destination.link}
+                        className="inline-flex items-center text-white text-xs font-inter font-regular hover:text-[#FBB03B] transition-colors mt-2"
+                      >
+                        SEE MORE <ArrowRight size={14} className="ml-2" />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Us */}
+        <section className="py-16 md:py-20 -mt-10">
+          <div className="container mx-auto">
+            <div className="animate-on-scroll mb-12 text-center">
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]"
+              >
+                WHY CHOOSE US
+              </motion.span>
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="container mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl md:max-w-5xl items-center justify-center mx-auto"
+              >
+                Exceptional Service from a Trusted Sri Lanka Travel Agency
+              </motion.h2>
+            </div>
+            
+            {/* 5 Cards Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              {homeData.whyChooseUs.map((item, index) => {
+                const iconComponents = {
+                  UserPen,
+                  HeartHandshake,
+                  Star,
+                  ChartNoAxesCombined,
+                  Languages
+                };
+                const IconComponent = iconComponents[item.icon as keyof typeof iconComponents];
+                
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+                    className="text-center"
+                  >
+                    <div className="w-16 h-16 mx-auto mb-4 bg-white border rounded-full shadow-lg flex items-center justify-center">
+                      <div className="w-12 h-12 bg-[#FBB03B]/40 rounded-full flex items-center justify-center">
+                        <IconComponent className="text-[#FBB03B]" size={24} />
+                      </div>
+                    </div>
+                    <h3 className="font-inter text-lg font-semibold text-[#423939] mb-2">{item.title}</h3>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Us */}
+        <section className="py-16 md:py-20 -mt-10">
+          <div className="container mx-auto">
+            <div className="animate-on-scroll mb-12 text-center">
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]"
+              >
+                EXPLORE POPULAR PACKAGES
+              </motion.span>
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="container mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl md:max-w-5xl items-center justify-center mx-auto"
+              >
+                What we offer is an Unforgettable Journey and Experience
+              </motion.h2>
+            </div>
+
+            {/* Tabs */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="flex justify-center gap-3 mb-10 animate-on-scroll flex-wrap"
+            >
+              {["All", "Ancient", "Heritage", "Hill"].map((tab, index) => (
+                <motion.button
+                  key={tab}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-6 py-2 rounded-full text-sm font-inter font-semibold transition-colors border ${
+                    activeTab === tab
+                      ? "bg-[#FBB03B] text-white border-[#FBB03B]"
+                      : "bg-transparent text-[#717171] border-border hover:border-[#717171] hover:text-primary"
+                  }`}
+                >
+                  {tab}
+                </motion.button>
+              ))}
+            </motion.div>
+
+            {/* Tour Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              {homeData.tours
+                .filter((tour) => activeTab === "All" || tour.category === activeTab)
+                .slice(0, typeof window !== 'undefined' && window.innerWidth >= 1024 ? 3 : typeof window !== 'undefined' && window.innerWidth >= 768 ? 4 : 3)
+                .map((tour, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
+                  className="rounded-2xl overflow-hidden bg-white group shadow-sm animate-on-scroll"
+                >
+                  <div className="relative h-56 sm:h-60 overflow-hidden">
+                    <img src={tour.img} alt={tour.title} className="h-full w-full object-cover transition-transform duration-500 rounded-2xl" />
+                    {/* Rating badge */}
+                    <div className="absolute top-3 left-3 flex items-center gap-1 bg-[#0C111F]/40 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1.5 rounded-full">
+                      <Star size={12} className="text-[#FBB03B] fill-[#FBB03B]" />
+                      {tour.rating}
+                    </div>
+                    {/* Duration badge */}
+                    <div className="absolute bottom-3 right-3 bg-white/18 backdrop-blur-sm text-white text-xs font-inter font-semibold px-3 py-1.5 rounded-full border border-white/30">
+                      {tour.duration}
+                    </div>
+                  </div>
+                  <div className="p-3">
+                    <h3 className="text-base sm:text-lg font-semibold text-black mb-2">{tour.title}</h3>
+                    <p className="text-[#7A7777] text-sm mb-4 font-inter font-medium">{tour.desc}</p>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-[#0C111F]/60 font-inter font-medium">Price</p>
+                        <span className="text-[#0C111F] font-inter font-bold text-lg">$ {tour.price}</span>
+                      </div>
+                      <button className="px-5 py-2 rounded-full text-sm font-inter font-semibold border border-[#717171] text-[#717171] hover:scale-105 transition-transform">
+                        View More
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Explore More Button */}
+            <div className="text-center animate-on-scroll">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="inline-flex items-center gap-2"
+              >
+                <Button className="rounded-full px-8 py-3 text-base font-inter font-semibold">
+                  Explore More <ArrowRight size={14} className="ml-2" />
+                </Button>
+              </motion.div>
+            </div>
           </div>
         </section>
       </main>
