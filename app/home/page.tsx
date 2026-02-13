@@ -13,7 +13,6 @@ import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popove
 import { format } from 'date-fns';
 import { cn } from '../lib/utils';
 import { Calendar } from '../components/ui/Calendar';
-import Link from 'next/link';
 import { Button as Button2 } from '../components/ui/Button';
 import { Mail } from 'lucide-react';
 
@@ -25,7 +24,6 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState("All");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const [emailInputFocused, setEmailInputFocused] = useState(false);
 
   const goNext = useCallback(() => setHeroIndex((i) => (i + 1) % homeData.heroSlides.length), []);
   const goPrev = useCallback(() => setHeroIndex((i) => (i - 1 + homeData.heroSlides.length) % homeData.heroSlides.length), []);
@@ -614,17 +612,29 @@ export default function HomePage() {
         <section className="py-16 md:py-20 -mt-10">
           <div className="container mx-auto">
             <div className="mb-12 grid gap-16 lg:grid-cols-2">
-              <div className="animate-on-scroll-left">
+              <motion.div
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="animate-on-scroll-left"
+              >
                 <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]">ADVENTURES</span>
                 <h2 className="mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl">
                   Uncharted Expeditions Thrilling Adventures Await!
                 </h2>
-              </div>
-              <div className="animate-on-scroll-right flex items-end">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+                className="animate-on-scroll-right flex items-end"
+              >
                 <p className="text-sm md:text-md leading-relaxed text-[#7A7777] font-inter font-regular">
                   Uncharted Expeditions invites you to explore Sri Lanka’s hidden wonders through breathtaking landscapes and unforgettable adventures.
                 </p>
-              </div>
+              </motion.div>
             </div>
 
             {/* Adventure Cards */}
@@ -664,8 +674,20 @@ export default function HomePage() {
         {/*  FAQ */}
         <section className="py-16 lg:py-20 -mt-10">
           <div className="container mx-auto">
-            <div className="grid lg:grid-cols-2 gap-10 items-start">
-              <div className="animate-on-scroll-left lg:max-w-lg">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              className="grid lg:grid-cols-2 gap-10 items-start"
+            >
+              <motion.div
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7, ease: 'easeOut' }}
+                className="animate-on-scroll-left lg:max-w-lg"
+              >
                 <p className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B] mb-2">FAQ</p>
                 <h2 className="mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl mb-5">
                   Frequently Asked Questions
@@ -673,8 +695,14 @@ export default function HomePage() {
                 <p className="text-sm md:text-md text-[#7A7777] font-inter font-regular mt-6">
                   Click on any of the questions below to find answers that guide you through the booking process.
                 </p>
-              </div>
-              <div className="space-y-3 animate-on-scroll-right">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7, ease: 'easeOut' }}
+                className="space-y-3 animate-on-scroll-right"
+              >
                 {homeData.faqs.map((q, i) => (
                   <button
                     key={i}
@@ -691,8 +719,8 @@ export default function HomePage() {
                     )}
                   </button>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
 
@@ -767,7 +795,7 @@ export default function HomePage() {
                         </div>
                       </div>
                       
-                      <p className="text-sm text-[#7D7474]/85 font-inter font-regular">"{t.text}"</p>
+                      <p className="text-sm text-[#7D7474]/85 font-inter font-regular">&ldquo;{t.text}&rdquo;</p>
                     </div>
                   ))}
                 </div>
@@ -777,7 +805,7 @@ export default function HomePage() {
         </section>
 
         {/* Get Started */}
-        <section className="mt-4 px-4 sm:px-6 lg:px-12 pb-8">
+        <section className="px-4 sm:px-6 lg:px-12 pb-8">
           <div className="max-w-8xl mx-auto relative h-[50vh] min-h-[500px] overflow-hidden rounded-[1.5rem]">
             <div className="absolute inset-0">
               <Image
@@ -806,7 +834,7 @@ export default function HomePage() {
                 }}
                 className="max-w-4xl mx-auto"
               >
-                <h4 className="-mt-10 text-md md:text-lg text-white tracking-tight font-inter font-medium">
+                <h4 className="-mt-16 text-md md:text-lg text-white tracking-tight font-inter font-medium">
                   DO YOU NEED OUR HELP?
                 </h4>
                 <h1 className="mt-4 text-4xl md:text-6xl md:max-w-lg text-white tracking-tight drop-shadow-lg font-inter font-medium">
@@ -816,24 +844,29 @@ export default function HomePage() {
                   We provide through the button below
                 </p>
                 {/* Submit Bar */}
-                <div className="absolute mt-10 left-0 right-0 mx-auto w-full max-w-2xl px-4 z-30">
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-0 bg-white/10 backdrop-blur-md border border-white/30 rounded-xl md:rounded-full p-3 sm:p-3 shadow-xl">
+                <div className="absolute mt-10 left-0 right-0 mx-auto w-full max-w-xl px-4 z-30">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-0 bg-white/10 backdrop-blur-md border border-white/30 rounded-2xl md:rounded-full p-3 sm:p-3 shadow-xl">
 
                     {/* Email Input */}
                     <div className="relative flex-1">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-white h-5 w-5" />
+                      <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-white h-5 w-5" />
                       <input
                         type="email"
                         placeholder="Enter your email"
-                        className={`w-full pl-10 pr-4 py-3 bg-transparent text-white placeholder-white/60 transition-all border-none outline-none ${emailInputFocused ? 'ring-2 ring-[#FBB03B]' : ''}`}
-                        onFocus={() => setEmailInputFocused(true)}
-                        onBlur={() => setEmailInputFocused(false)}
-                        onClick={() => setEmailInputFocused(false)}
+                        className="w-full pl-12 pr-4 py-3 bg-transparent text-white placeholder-white caret-white"
+                        style={{ 
+                          outline: 'none', 
+                          border: 'none', 
+                          boxShadow: 'none',
+                          WebkitAppearance: 'none',
+                          MozAppearance: 'none',
+                          appearance: 'none'
+                        }}
                       />
                     </div>
 
                     {/* Submit Button */}
-                    <Button2 className="rounded-full px-8 py-3 text-base font-inter font-semibold">
+                    <Button2 className="rounded-full px-12 py-2 text-base font-inter font-semibold">
                       Submit
                     </Button2>
                   </div>
