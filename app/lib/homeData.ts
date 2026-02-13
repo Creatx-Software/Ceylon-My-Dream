@@ -111,9 +111,81 @@ export const tours = [
   },
 ];
 
+export const adventures = [
+  {
+    type: "BEACH",
+    title: "Blue Whale Watching",
+    image: "https://images.unsplash.com/photo-1698334846753-cc817a5277be?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    type: "NATURE",
+    title: "Hiking and Trekking",
+    image: "https://images.unsplash.com/photo-1604226397821-a620f9b9348c?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    type: "BEACH",
+    title: "Surfing",
+    image: "https://images.unsplash.com/photo-1615169019958-78e317e81166?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  }
+];
+
+export const faqs = [
+  {
+    question: "How do I book a trip with your travel service?",
+    answer: "Booking your trip is easy—simply contact us through our website or send us an inquiry with your travel preferences. We’ll customize your itinerary and guide you through the next steps."
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer: "We accept all major credit cards (Visa, MasterCard, American Express), bank transfers, PayPal, and cash payments. A 30% deposit confirms your booking, with balance due 14 days before travel."
+  },
+  {
+    question: "How do I know if my booking is confirmed?",
+    answer: "Once we receive your deposit and finalize your itinerary, we’ll send you a confirmation email with all the details of your booking, including vouchers and contact information."
+  },
+  {
+    question: "Do you offer group travel packages?",
+    answer: "Yes, we offer special rates and customized itineraries for groups of all sizes, from family reunions to corporate retreats. Contact us with your group details for a tailored proposal."
+  },
+  {
+    question: "Do you offer travel insurance?",
+    answer: "Yes, we offer travel insurance options that can be added to your booking for comprehensive coverage during your trip. Please contact us for more details on available plans."
+  },
+];
+
+export const testimonials = [
+  {
+    name: "Sarah Johnson",
+    profileImage: "",
+    text: "The most incredible Sri Lanka experience! Every detail was perfectly planned, from the ancient temples to the pristine beaches. The guides were knowledgeable and friendly."
+  },
+  {
+    name: "Michael Chen",
+    profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    text: "Outstanding service from start to finish. The team customized our corporate retreat perfectly. Professional, reliable, and exceeded all expectations."
+  },
+  {
+    name: "Emma Wilson",
+    profileImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    text: "Our family trip was magical! The kids loved the wildlife safari, and we enjoyed the cultural sites. Everything was seamless and stress-free."
+  },
+  {
+    name: "David Martinez",
+    profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    text: "Best adventure travel company! The hiking and trekking experiences were unforgettable. Safety was always prioritized while maintaining excitement."
+  },
+  {
+    name: "Lisa Thompson",
+    profileImage: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=150&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    text: "Perfect honeymoon planning! Romantic beach resorts, private tours, and thoughtful touches throughout. Made our special trip absolutely perfect."
+  }
+];
+
 export const homeData = {
   heroSlides,
   destinations,
   whyChooseUs,
-  tours
+  tours,
+  adventures,
+  faqs,
+  testimonials
 };

@@ -13,6 +13,9 @@ import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popove
 import { format } from 'date-fns';
 import { cn } from '../lib/utils';
 import { Calendar } from '../components/ui/Calendar';
+import Link from 'next/link';
+import { Button as Button2 } from '../components/ui/Button';
+import { Mail } from 'lucide-react';
 
 export default function HomePage() {
   const [heroIndex, setHeroIndex] = useState(0);
@@ -20,9 +23,34 @@ export default function HomePage() {
   const [checkOut, setCheckOut] = useState<Date | undefined>(undefined);
   const [pax, setPax] = useState(1);
   const [activeTab, setActiveTab] = useState("All");
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [emailInputFocused, setEmailInputFocused] = useState(false);
 
   const goNext = useCallback(() => setHeroIndex((i) => (i + 1) % homeData.heroSlides.length), []);
   const goPrev = useCallback(() => setHeroIndex((i) => (i - 1 + homeData.heroSlides.length) % homeData.heroSlides.length), []);
+  
+  const getVisibleCards = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768) return 2;
+    }
+    return 1;
+  };
+
+  const nextTestimonial = useCallback(() => {
+    setTestimonialIndex((i) => {
+      const newIndex = i + 1;
+      return newIndex >= homeData.testimonials.length ? 0 : newIndex;
+    });
+  }, []);
+
+  const prevTestimonial = useCallback(() => {
+    setTestimonialIndex((i) => {
+      const newIndex = i - 1;
+      return newIndex < 0 ? homeData.testimonials.length - 1 : newIndex;
+    });
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(goNext, 5000);
@@ -346,7 +374,7 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.5 }}
-                  className="mt-10 text-lg text-[#0C111F] leading-relaxed font-inter font-regular"
+                  className="mt-10 text-sm md:text-md text-[#7A7777] leading-relaxed font-inter font-regular"
                 >
                   Discover Sri Lanka — from ancient cities and rich culture to golden beaches and misty hill country.
                 </motion.p>
@@ -581,6 +609,240 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Adventure */}
+        <section className="py-16 md:py-20 -mt-10">
+          <div className="container mx-auto">
+            <div className="mb-12 grid gap-16 lg:grid-cols-2">
+              <div className="animate-on-scroll-left">
+                <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]">ADVENTURES</span>
+                <h2 className="mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl">
+                  Uncharted Expeditions Thrilling Adventures Await!
+                </h2>
+              </div>
+              <div className="animate-on-scroll-right flex items-end">
+                <p className="text-sm md:text-md leading-relaxed text-[#7A7777] font-inter font-regular">
+                  Uncharted Expeditions invites you to explore Sri Lanka’s hidden wonders through breathtaking landscapes and unforgettable adventures.
+                </p>
+              </div>
+            </div>
+
+            {/* Adventure Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              {homeData.adventures.map((adventure, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+                  className="relative group cursor-pointer overflow-hidden rounded-2xl"
+                >
+                  <div className="relative h-80 md:h-80 lg:h-[400px]">
+                    <img 
+                      src={adventure.image} 
+                      alt={adventure.title} 
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
+                    <div className="absolute bottom-8 left-8 right-0">
+                      <span className="text-white text-xs font-inter font-regular mb-2 uppercase">
+                        {adventure.type}
+                      </span>
+                      <h3 className="mt-2 text-white text-lg font-inter font-semibold">{adventure.title}</h3>
+                      <a href="#" className="inline-flex items-center text-white text-sm font-inter font-regular hover:text-[#FBB03B] transition-colors mt-2">
+                        SEE MORE <ArrowRight size={14} className="ml-2" />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/*  FAQ */}
+        <section className="py-16 lg:py-20 -mt-10">
+          <div className="container mx-auto">
+            <div className="grid lg:grid-cols-2 gap-10 items-start">
+              <div className="animate-on-scroll-left lg:max-w-lg">
+                <p className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B] mb-2">FAQ</p>
+                <h2 className="mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl mb-5">
+                  Frequently Asked Questions
+                </h2>
+                <p className="text-sm md:text-md text-[#7A7777] font-inter font-regular mt-6">
+                  Click on any of the questions below to find answers that guide you through the booking process.
+                </p>
+              </div>
+              <div className="space-y-3 animate-on-scroll-right">
+                {homeData.faqs.map((q, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="w-full text-left p-4 rounded-xl bg-white border border-[#7D7474]/85 transition-colors"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-md font-inter font-medium text-[#1E1E1E]">{q.question}</span>
+                    </div>
+                    {openFaq === i && (
+                      <p className="mt-3 text-sm text-[#717171] font-inter font-regular">
+                        {homeData.faqs[i].answer}
+                      </p>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Us */}
+        <section className="py-16 md:py-20 -mt-10">
+          <div className="container mx-auto">
+            <div className="animate-on-scroll mb-12 text-center">
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]"
+              >
+                TESTIMONIALS
+              </motion.span>
+              <motion.h2
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="container mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl items-center justify-center mx-auto"
+              >
+                Your Trusted Partner in Travel
+              </motion.h2>
+            </div>
+            <div className="relative">
+              <button
+                onClick={prevTestimonial}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                onClick={nextTestimonial}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight size={20} />
+              </button>
+              <div className="overflow-hidden mx-12">
+                <div 
+                  className="flex gap-4 md:gap-6 lg:gap-10 transition-transform duration-500 ease-in-out"
+                  style={{ 
+                    transform: `translateX(-${testimonialIndex * (100 / getVisibleCards() + 2 / getVisibleCards())}%)`
+                  }}
+                >
+                  {homeData.testimonials.map((t, i) => (
+                    <div key={i} className={`p-6 rounded-2xl bg-white border text-left animate-on-scroll transition-all duration-300 flex-shrink-0 w-[98%] md:w-[48%] lg:w-[31%] ${i === testimonialIndex ? "border-primary shadow-lg" : "border-border/20"}`}>
+                      <div className="flex items-center gap-3 mb-4">
+                        {t.profileImage ? (
+                          <div className="h-12 w-12 rounded-full overflow-hidden">
+                            <img 
+                              src={t.profileImage} 
+                              alt={t.name} 
+                              className="h-full w-full object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="h-12 w-12 rounded-full bg-[#4B485B] flex items-center justify-center">
+                            <span className="font-inter text-sm font-semibold text-white">{t.name[0]}</span>
+                          </div>
+                        )}
+                        <div>
+                          <p className="text-sm font-semibold text-card-foreground">{t.name}</p>
+                          <div className="flex gap-1 mt-1">
+                            {[...Array(5)].map((_, j) => (
+                              <Star key={j} size={14} className="text-[#FBB03B] fill-[#FBB03B]" />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <p className="text-sm text-[#7D7474]/85 font-inter font-regular">"{t.text}"</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Get Started */}
+        <section className="mt-4 px-4 sm:px-6 lg:px-12 pb-8">
+          <div className="max-w-8xl mx-auto relative h-[50vh] min-h-[500px] overflow-hidden rounded-[1.5rem]">
+            <div className="absolute inset-0">
+              <Image
+                src="https://images.unsplash.com/photo-1734279135077-0d3069b1dabf?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Ready background"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+        
+            <div className="absolute inset-0 bg-black/30" />
+            <div className="relative h-full flex items-center justify-center px-4 text-center">
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 40,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.8,
+                  ease: 'easeOut',
+                }}
+                className="max-w-4xl mx-auto"
+              >
+                <h4 className="-mt-10 text-md md:text-lg text-white tracking-tight font-inter font-medium">
+                  DO YOU NEED OUR HELP?
+                </h4>
+                <h1 className="mt-4 text-4xl md:text-6xl md:max-w-lg text-white tracking-tight drop-shadow-lg font-inter font-medium">
+                  Contact us for Help or Information
+                </h1>
+                <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium md:text-lg">
+                  We provide through the button below
+                </p>
+                {/* Submit Bar */}
+                <div className="absolute mt-10 left-0 right-0 mx-auto w-full max-w-2xl px-4 z-30">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-0 bg-white/10 backdrop-blur-md border border-white/30 rounded-xl md:rounded-full p-3 sm:p-3 shadow-xl">
+
+                    {/* Email Input */}
+                    <div className="relative flex-1">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-white h-5 w-5" />
+                      <input
+                        type="email"
+                        placeholder="Enter your email"
+                        className={`w-full pl-10 pr-4 py-3 bg-transparent text-white placeholder-white/60 transition-all border-none outline-none ${emailInputFocused ? 'ring-2 ring-[#FBB03B]' : ''}`}
+                        onFocus={() => setEmailInputFocused(true)}
+                        onBlur={() => setEmailInputFocused(false)}
+                        onClick={() => setEmailInputFocused(false)}
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <Button2 className="rounded-full px-8 py-3 text-base font-inter font-semibold">
+                      Submit
+                    </Button2>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
       </main>
         
       {/* Footer*/}
