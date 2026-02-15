@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Calendar as CalendarIcon, Users, ArrowRight, UserPen, HeartHandshake, Star, ChartNoAxesCombined, Languages } from 'lucide-react';
 import { useState, useEffect, useCallback } from "react";
 import { homeData } from '../lib/homeData';
+import { tourData } from '../lib/toursData';
 import { Button } from '../components/ui/ButtonMain';
 import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popover';
 import { format } from 'date-fns';
@@ -550,7 +551,7 @@ export default function HomePage() {
 
             {/* Tour Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-              {homeData.tours
+              {tourData.tours
                 .filter((tour) => activeTab === "All" || tour.category === activeTab)
                 .slice(0, typeof window !== 'undefined' && window.innerWidth >= 1024 ? 3 : typeof window !== 'undefined' && window.innerWidth >= 768 ? 4 : 3)
                 .map((tour, i) => (

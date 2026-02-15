@@ -72,45 +72,6 @@ export const whyChooseUs = [
   }
 ];
 
-export const tours = [
-  {
-    img: "https://images.unsplash.com/photo-1594391045445-64ea3c6ff16b?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "ANCIENT OF CEYLON",
-    rating: "4.9",
-    duration: "6 Days / 5 Nights",
-    desc: "The 6-day Ancient Ceylon tour package offers you the best days of your life inside the ancient kingdoms in Sri Lanka.",
-    price: "149.00",
-    category: "Ancient"
-  },
-  {
-    img: "https://images.unsplash.com/photo-1665849050430-5e8c16bacf7e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "CEYLON HERITAGE TOUR",
-    rating: "4.8",
-    duration: "8 Days / 7 Nights",
-    desc: "Explore the rich ancient history of Sri Lanka, designed for the visitors interested in antiquities",
-    price: "1020.00",
-    category: "Heritage"
-  },
-  {
-    img: "https://images.unsplash.com/photo-1639401672371-0c4be4389107?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "CEYLON HILL TOUR",
-    rating: "5.0",
-    duration: "5 Days / 4 Nights",
-    desc: "Perfect getaway for visitors who want to experience the cool breezy hill country of Sri Lanka",
-    price: "370.00",
-    category: "Hill"
-  },
-  {
-    img: "https://images.unsplash.com/photo-1519566335946-e6f65f0f4fdf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "EAST COAST",
-    rating: "5.0",
-    duration: "5 Days / 4 Nights",
-    desc: "The 6 day East Coast tour package offers you the perfect blend of beach and the cultural experience.",
-    price: "370.00",
-    category: "Hill"
-  },
-];
-
 export const adventures = [
   {
     type: "BEACH",
@@ -184,7 +145,6 @@ export const homeData = {
   heroSlides,
   destinations,
   whyChooseUs,
-  tours,
   adventures,
   faqs,
   testimonials
