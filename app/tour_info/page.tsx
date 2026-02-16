@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { getTourById } from '../lib/toursData';
 
-export default function TourInfoPage() {
+function TourInfoContent() {
   const searchParams = useSearchParams();
   const tourId = searchParams.get('id') || 'tour-1';
   
@@ -29,21 +29,14 @@ export default function TourInfoPage() {
 
   if (!tour) {
     return (
-      <div className="min-h-screen bg-white">
-        <Navbar />
-        <div className="flex items-center justify-center h-[60vh]">
-          <p className="text-xl text-gray-600">Tour not found</p>
-        </div>
-        <Footer />
+      <div className="flex items-center justify-center h-[60vh]">
+        <p className="text-xl text-gray-600">Tour not found</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navbar */}
-        <Navbar />
-
+    <>
         <main>
           {/* Hero */}
           <section className="mt-4 px-4 sm:px-6 lg:px-12">
@@ -140,9 +133,22 @@ export default function TourInfoPage() {
             </div>
           </section>
         </main>
-        
-        {/* Footer */}
-        <Footer />
-      </div>
+    </>
     );
+}
+
+export default function TourInfoPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      <Navbar />
+      <Suspense fallback={
+        <div className="flex items-center justify-center h-[60vh]">
+          <p className="text-xl text-gray-600">Loading...</p>
+        </div>
+      }>
+        <TourInfoContent />
+      </Suspense>
+      <Footer />
+    </div>
+  );
 }
