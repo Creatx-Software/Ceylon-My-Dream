@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
@@ -8,6 +9,7 @@ import { Star, Search, Filter, ChevronDown, ArrowUpDown } from 'lucide-react';
 import { tourData } from '../lib/toursData';
 
 export default function TourstPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
   const [showDefaultDropdown, setShowDefaultDropdown] = useState(false);
@@ -239,7 +241,10 @@ export default function TourstPage() {
                         <p className="text-xs text-[#0C111F]/60 font-inter font-medium">Price</p>
                         <span className="text-[#0C111F] font-inter font-bold text-lg">$ {tour.price}</span>
                       </div>
-                      <button className="px-5 py-2 rounded-full text-sm font-inter font-semibold border border-[#717171] text-[#717171] hover:scale-105 transition-transform">
+                      <button 
+                        onClick={() => router.push(`/tour_info?id=${tour.id}`)}
+                        className="px-5 py-2 rounded-full text-sm font-inter font-semibold border border-[#717171] text-[#717171] hover:scale-105 transition-transform"
+                      >
                         View More
                       </button>
                     </div>
