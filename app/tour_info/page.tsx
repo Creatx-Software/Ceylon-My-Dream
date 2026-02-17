@@ -345,8 +345,8 @@ function TourInfoContent() {
                       <button className="flex items-center gap-3 w-full rounded-lg bg-card/40 border border-border/20 px-4 py-3 text-left hover:border-primary/40 transition-colors">
                         <CalendarIcon size={18} className="text-primary shrink-0" />
                         <div>
-                          <span className="text-xs text-muted-foreground block">Check-in</span>
-                          <span className="text-sm text-secondary-foreground font-medium">
+                          <span className="text-xs text-white font-inter font-medium block">Check-in</span>
+                          <span className="text-sm text-white font-inter font-regular">
                             {checkIn ? format(checkIn, "MM/dd/yyyy") : "Select date"}
                           </span>
                         </div>
