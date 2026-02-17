@@ -238,17 +238,21 @@ function TourInfoContent() {
                           <div className={`relative w-fit ${isLeft ? "order-1" : "order-2"}`}>
                             {/* Large image */}
                             <div className="w-28 h-28 rounded-xl overflow-hidden shadow-xl">
-                              <img
+                              <Image
                                 src={day.images[0]}
                                 alt={day.location}
+                                width={112}
+                                height={112}
                                 className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
                               />
                             </div>
                             {/* Small image - overlapping */}
                             <div className={`absolute -bottom-6 sm:-bottom-8 ${isLeft ? "-right-8 sm:-right-10" : "-left-8 sm:-left-10"} w-20 h-20 rounded-xl overflow-hidden shadow-xl`}>
-                              <img
+                              <Image
                                 src={day.images[1] || day.images[0]}
                                 alt={`${day.location} detail`}
+                                width={80}
+                                height={80}
                                 className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
                               />
                             </div>
@@ -294,7 +298,7 @@ function TourInfoContent() {
 
         <div className="container mx-auto relative z-10">
           <h2 className="font-inter text-3xl font-semibold text-white md:text-5xl mb-6">
-            What's Included
+            What&apos;s Included
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-10 text-center">
             {tour.included.map((item, i) => {
