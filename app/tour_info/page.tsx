@@ -3,7 +3,7 @@
 import React, { useState, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { format } from 'date-fns';
-import { ChevronLeft, ChevronRight, ChevronDown, CalendarIcon, Users, MessageSquare, Mail } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronDown, CalendarIcon, Users, MessageSquare, Mail, Plus, Minus } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { getTourById } from '../lib/toursData';
@@ -12,11 +12,14 @@ import { Button } from '../components/ui/Button';
 import { Calendar } from '../components/ui/Calendar';
 import { cn } from '../lib/utils';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function TourInfoContent() {
   const [checkIn, setCheckIn] = useState<Date | undefined>(undefined);
   const [checkOut, setCheckOut] = useState<Date | undefined>(undefined);
-  const [guests, setGuests] = useState('');
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+  const [guestsOpen, setGuestsOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [note, setNote] = useState('');
   const [galleryIndex, setGalleryIndex] = useState(0);
@@ -215,7 +218,7 @@ function TourInfoContent() {
               <div 
                 className="absolute left-1/2 top-0 w-0.5 bg-[#FBB03B]" 
                 style={{ 
-                  height: `${((tour.itinerary.length + 0.1) / tour.itinerary.length) * 100}%` 
+                  height: `${((tour.itinerary.length + 0) / tour.itinerary.length) * 100}%` 
                 }} 
               />
 
@@ -322,7 +325,7 @@ function TourInfoContent() {
 
       {/* ===== BOOKING FORM + MAP ===== */}
       <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-12">
-        <div className="max-w-8xl mx-auto relative h-[60vh] md:min-h-[740px] lg:min-h-[680px] overflow-hidden rounded-[1.5rem]">
+        <div className="max-w-8xl mx-auto relative min-h-[150vh] sm:min-h-[150vh] md:min-h-[100vh] lg:min-h-[60vh] overflow-hidden rounded-[1.5rem]">
           {/* Booking bg */}
           <div className="absolute inset-0">
             <Image
@@ -334,10 +337,10 @@ function TourInfoContent() {
             />
           </div>
           {/* Booking Info */}
-          <div className="container mx-auto relative z-10 h-full">
-            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start h-full">
+          <div className="container mx-auto relative z-10 h-full pt-8 pb-10">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch h-full">
               {/* Booking Form */}
-              <div className="bg-secondary rounded-2xl p-6 sm:p-8 animate-on-scroll-left">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/50 rounded-2xl p-6 sm:p-8 animate-on-scroll-left h-full flex flex-col">
                 <h2 className="font-inter text-3xl md:text-5xl font-medium text-white mb-6">
                   Want to Join Us?
                 </h2>
@@ -346,15 +349,15 @@ function TourInfoContent() {
                   {/* Check-in */}
                   <Popover>
                     <PopoverTrigger asChild>
-                      <button className="flex items-center gap-3 w-full rounded-lg bg-card/40 border border-border/20 px-4 py-3 text-left hover:border-primary/40 transition-colors">
-                        <CalendarIcon size={18} className="text-primary shrink-0" />
+                      <button className="flex items-center gap-3 w-full rounded-lg bg-card/40 px-4 py-3 text-left transition-colors">
+                        <CalendarIcon size={18} className="text-white shrink-0" />
                         <div>
-                          <span className="text-xs text-white font-inter font-medium block">Check-in</span>
+                          <span className="text-md text-white font-inter font-medium block">Check-in</span>
                           <span className="text-sm text-white font-inter font-regular">
                             {checkIn ? format(checkIn, "MM/dd/yyyy") : "Select date"}
                           </span>
                         </div>
-                        <ChevronDown size={14} className="text-muted-foreground ml-auto" />
+                        <ChevronDown size={14} className="text-white ml-auto" />
                       </button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 z-50" align="start">
@@ -371,15 +374,15 @@ function TourInfoContent() {
                   {/* Check-out */}
                   <Popover>
                     <PopoverTrigger asChild>
-                      <button className="flex items-center gap-3 w-full rounded-lg bg-card/40 border border-border/20 px-4 py-3 text-left hover:border-primary/40 transition-colors">
-                        <CalendarIcon size={18} className="text-primary shrink-0" />
+                      <button className="flex items-center gap-3 w-full rounded-lg bg-card/40 px-4 py-3 text-left transition-colors">
+                        <CalendarIcon size={18} className="text-white shrink-0" />
                         <div>
-                          <span className="text-xs text-muted-foreground block">Check-out</span>
-                          <span className="text-sm text-secondary-foreground font-medium">
+                          <span className="text-md text-white font-inter font-medium block">Check-out</span>
+                          <span className="text-sm text-white font-inter font-regular">
                             {checkOut ? format(checkOut, "MM/dd/yyyy") : "Select date"}
                           </span>
                         </div>
-                        <ChevronDown size={14} className="text-muted-foreground ml-auto" />
+                        <ChevronDown size={14} className="text-white ml-auto" />
                       </button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 z-50" align="start">
@@ -392,78 +395,135 @@ function TourInfoContent() {
                       />
                     </PopoverContent>
                   </Popover>
-                </div>
 
-                {/* Guests */}
-                <div className="flex items-center gap-3 w-full rounded-lg bg-card/40 border border-border/20 px-4 py-3 mb-4">
-                  <Users size={18} className="text-primary shrink-0" />
-                  <div>
-                    <span className="text-xs text-muted-foreground block">Guests</span>
-                    <input
-                      type="text"
-                      value={guests}
-                      onChange={(e) => setGuests(e.target.value)}
-                      className="text-sm text-secondary-foreground font-medium bg-transparent outline-none w-full"
-                    />
-                  </div>
+                  {/* Guests */}
+                  <Popover open={guestsOpen} onOpenChange={setGuestsOpen}>
+                    <PopoverTrigger asChild>
+                      <button className="flex items-center gap-3 w-full rounded-lg bg-card/40 px-4 py-3 text-left transition-colors">
+                        <Users size={18} className="text-white shrink-0" />
+                        <div className="flex-1">
+                          <span className="text-md text-white font-inter font-medium block">Guests</span>
+                          <span className="text-sm text-white font-inter font-regular">
+                            {adults + children} {adults + children === 1 ? 'Guest' : 'Guests'}
+                          </span>
+                        </div>
+                        <ChevronDown size={14} className="text-white ml-auto" />
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80 p-4 z-50" align="start">
+                      <div className="space-y-4">
+                        {/* Adults */}
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <span className="text-sm font-inter font-medium text-gray-900">Adults </span>
+                            <span className="text-xs font-inter font-regular text-gray-500">Ages 13 or above</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => setAdults(Math.max(1, adults - 1))}
+                              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100"
+                            >
+                              <Minus size={14} />
+                            </button>
+                            <span className="w-8 text-center font-inter font-medium">{adults}</span>
+                            <button
+                              onClick={() => setAdults(adults + 1)}
+                              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100"
+                            >
+                              <Plus size={14} />
+                            </button>
+                          </div>
+                        </div>
+                        
+                        {/* Children */}
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <span className="text-sm font-inter font-medium text-gray-900">Children </span>
+                            <span className="text-xs font-inter font-regular text-gray-500">Ages 2-12</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => setChildren(Math.max(0, children - 1))}
+                              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100"
+                            >
+                              <Minus size={14} />
+                            </button>
+                            <span className="w-8 text-center font-medium">{children}</span>
+                            <button
+                              onClick={() => setChildren(children + 1)}
+                              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100"
+                            >
+                              <Plus size={14} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
 
                 {/* Email */}
-                <div className="flex items-center gap-3 w-full rounded-lg bg-card/40 border border-border/20 px-4 py-3 mb-4">
-                  <Mail size={18} className="text-primary shrink-0" />
+                <div className="flex items-center gap-3 w-full rounded-lg bg-card/40 px-4 py-3 mb-4">
+                  <Mail size={18} className="text-white shrink-0" />
                   <div className="flex-1">
-                    <span className="text-xs text-muted-foreground block">Email</span>
+                    <span className="text-md text-white font-inter font-medium block">Email</span>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
-                      className="text-sm text-secondary-foreground font-medium bg-transparent outline-none w-full placeholder:text-muted-foreground"
+                      className="text-sm text-white font-inter font-regular bg-transparent outline-none w-full placeholder:text-white"
                     />
                   </div>
                 </div>
 
                 {/* Note */}
-                <div className="flex items-start gap-3 w-full rounded-lg bg-card/40 border border-border/20 px-4 py-3 mb-6">
-                  <MessageSquare size={18} className="text-primary shrink-0 mt-0.5" />
+                <div className="flex items-start gap-3 w-full rounded-lg bg-card/40 px-4 py-3">
+                  <MessageSquare size={18} className="text-white shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <span className="text-xs text-muted-foreground block">Note</span>
+                    <span className="text-md text-white font-inter font-medium block">Note</span>
                     <textarea
                       value={note}
                       onChange={(e) => setNote(e.target.value)}
                       placeholder="Any special message?"
                       rows={2}
-                      className="text-sm text-secondary-foreground font-medium bg-transparent outline-none w-full resize-none placeholder:text-muted-foreground"
+                      className="text-sm text-white font-inter font-regular bg-transparent outline-none w-full resize-none placeholder:text-white"
                     />
                   </div>
                 </div>
 
                 {/* Price + Enquire */}
-                <div className="flex items-center justify-between mb-4">
+                <div className="mb-0 mx-4">
                   <div>
-                    <span className="font-heading text-2xl font-bold text-primary">
-                      {tour.pricePerNight}
+                    <span className="font-inter text-2xl font-semibold text-white">
+                      ${tour.pricePerNight}
                     </span>
-                    <span className="text-muted-foreground text-sm"> / Night</span>
+                    <span className="text-white font-inter font-medium text-sm"> / Night</span>
                   </div>
-                  <div>
-                    <span className="text-xs text-muted-foreground block">Total Price</span>
-                    <span className="font-heading text-xl font-bold text-secondary-foreground">
-                      {tour.price}
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="text-lg text-white font-inter font-semibold">Total Price</span>
+                    <span className="font-inter text-lg font-semibold text-white">
+                      ${tour.price}
                     </span>
                   </div>
                 </div>
-                <Button className="w-full rounded-full text-base py-6">Enquire</Button>
+                <div className="flex justify-center">
+                  <Link href="">
+                    <Button size="lg" className="mt-8 rounded-full px-12">
+                      Enquire
+                    </Button>
+                  </Link>
+                </div>
               </div>
 
               {/* Map */}
-              <div className="rounded-2xl overflow-hidden shadow-lg animate-on-scroll-right h-[400px] sm:h-[500px] lg:h-full lg:min-h-[550px]">
+              <div className="rounded-2xl overflow-hidden shadow-lg animate-on-scroll-right h-full flex">
                 <iframe
                   title="Sri Lanka Map"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2025938.522792887!2d79.38588715!3d7.8731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2593cf65a1e9d%3A0xe13da4b400e2d38c!2sSri%20Lanka!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
                   width="100%"
                   height="100%"
-                  style={{ border: 0 }}
+                  style={{ border: 0, minHeight: '600px' }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

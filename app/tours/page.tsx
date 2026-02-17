@@ -8,7 +8,7 @@ import { Footer } from '../components/Footer';
 import { Star, Search, Filter, ChevronDown, ArrowUpDown } from 'lucide-react';
 import { tourData } from '../lib/toursData';
 
-export default function TourstPage() {
+export default function ToursPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');

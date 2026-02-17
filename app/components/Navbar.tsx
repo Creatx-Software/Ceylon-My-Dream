@@ -10,7 +10,7 @@ const navLinks = [
   { name: 'Home', href: '/home' },
   { name: 'About Us', href: '/about' },
   { name: 'Tours', href: '/tours' },
-  { name: 'Destinations', href: '#' },
+  { name: 'Destinations', href: '/destinations' },
   { name: 'Adventure', href: '#' },
   { name: 'Gallery', href: '#' },
   { name: 'Blog', href: '#' },
