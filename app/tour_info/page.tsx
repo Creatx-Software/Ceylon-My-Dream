@@ -334,7 +334,7 @@ function TourInfoContent() {
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start h-full">
               {/* Booking Form */}
               <div className="bg-secondary rounded-2xl p-6 sm:p-8 animate-on-scroll-left">
-                <h2 className="font-heading text-2xl sm:text-3xl font-bold text-secondary-foreground mb-6">
+                <h2 className="font-inter text-3xl md:text-5xl font-medium text-white mb-6">
                   Want to Join Us?
                 </h2>
 
