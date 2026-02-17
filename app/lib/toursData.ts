@@ -1,5 +1,38 @@
 /* ─── Dynamic Tours Data ─── */
 
+/* ─── Booking Form Interface ─── */
+export interface BookingFormField {
+  name: string;
+  label: string;
+  type: "text" | "email" | "tel" | "date" | "number" | "select" | "textarea";
+  placeholder?: string;
+  required: boolean;
+  options?: Array<{ value: string; label: string }>;
+  validation?: string;
+}
+
+export interface BookingForm {
+  id: string;
+  title: string;
+  description: string;
+  fields: BookingFormField[];
+  submitButtonText: string;
+  successMessage: string;
+}
+
+/* ─── Map Location Interface ─── */
+export interface MapLocation {
+  id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  description: string;
+  category: "Ancient" | "Heritage" | "Hill" | "Beach" | "Wildlife";
+  icon?: string;
+  image?: string;
+}
+
+/* ─── Tour Interface ─── */
 export interface Tour {
   id: string;
   title: string;
@@ -23,6 +56,10 @@ export interface Tour {
     day: number;
     location: string;
     images: string[];
+  }[];
+  included: {
+    title: string;
+    desc: string;
   }[];
 }
 
@@ -61,28 +98,77 @@ const baseToursData: Tour[] = [
     itinerary: [
       {
         day: 1,
-        location: "Colombo",
-        images: ["https://images.unsplash.com/photo-1588084558933-01bafa5d47ac?q=80&w=1074&auto=format&fit=crop"]
+        location: "Mirissa",
+        images: [
+          "https://plus.unsplash.com/premium_photo-1664303478026-d4030f79eda4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1721076523794-7d6822502c50?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        ]
       },
       {
         day: 2,
-        location: "Bentota",
-        images: ["https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=1170&auto=format&fit=crop"]
+        location: "Dondra",
+        images: [
+          "https://images.unsplash.com/photo-1715431605889-ed32c6459f19?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1744156077169-a45467c2162e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      ]
       },
       {
         day: 3,
-        location: "Hikkaduwa",
-        images: ["https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=1168&auto=format&fit=crop"]
+        location: "Yala",
+        images: [
+          "https://images.unsplash.com/photo-1737859986851-30c9c350957a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1566781140536-110d0c5c52f8?q=80&w=1124&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        ]
       },
       {
         day: 4,
-        location: "Mirissa",
-        images: ["https://images.unsplash.com/photo-1700739746391-26561c282181?q=80&w=735&auto=format&fit=crop"]
+        location: "Galle",
+        images: [
+          "https://images.unsplash.com/photo-1592905169881-eff95fe441ed?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1746931734848-347c37fc8963?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        ]
       },
       {
         day: 5,
-        location: "Departure",
-        images: ["https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?q=80&w=1173&auto=format&fit=crop"]
+        location: "Madu",
+        images: [
+          "https://plus.unsplash.com/premium_photo-1664302586866-3b3793ae5b7e?q=80&w=1014&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1558216629-a2f7fe856792?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        ]
+      },
+      {
+        day: 6,
+        location: "Beach",
+        images: [
+          "https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        ]
+      },
+      {
+        day: 7,
+        location: "Colombo",
+        images: [
+          "https://images.unsplash.com/photo-1623595289196-007a22dd8560?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "https://plus.unsplash.com/premium_photo-1733727456390-0f37ea55d52c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        ]
+      }
+    ],
+    included: [
+      {
+        title: "Transfers",
+        desc: "Return Airport transfers by Air Conditioned car"
+      },
+      {
+        title: "Guides",
+        desc: "Professional English Speaking driver"
+      },
+      {
+        title: "Taxes & Fees",
+        desc: "All local government taxes included"
+      },
+      {
+        title: "Visa",
+        desc: "Visa Included for your convenience"
       }
     ]
   },
@@ -159,6 +245,24 @@ const baseToursData: Tour[] = [
         location: "Departure",
         images: ["https://images.unsplash.com/photo-1588084558933-01bafa5d47ac?q=80&w=1074&auto=format&fit=crop"]
       }
+    ],
+    included: [
+      {
+        title: "Accommodation",
+        desc: "Heritage hotels and boutique stays"
+      },
+      {
+        title: "Meals",
+        desc: "Daily breakfast and cultural dinners"
+      },
+      {
+        title: "Transport",
+        desc: "Luxury air-conditioned coach"
+      },
+      {
+        title: "Guide",
+        desc: "Expert heritage guide"
+      }
     ]
   },
   {
@@ -218,6 +322,24 @@ const baseToursData: Tour[] = [
         day: 5,
         location: "Return to Colombo",
         images: ["https://images.unsplash.com/photo-1619378044883-bb7a7ffda8ff?q=80&w=1074&auto=format&fit=crop"]
+      }
+    ],
+    included: [
+      {
+        title: "Accommodation",
+        desc: "Hill country tea estate bungalows"
+      },
+      {
+        title: "Meals",
+        desc: "All meals with local cuisine"
+      },
+      {
+        title: "Transport",
+        desc: "Private luxury vehicle transfers"
+      },
+      {
+        title: "Train Tickets",
+        desc: "Scenic train journey included"
       }
     ]
   },
@@ -279,6 +401,24 @@ const baseToursData: Tour[] = [
         location: "Return Journey",
         images: ["https://images.unsplash.com/photo-1700739746391-26561c282181?q=80&w=735&auto=format&fit=crop"]
       }
+    ],
+    included: [
+      {
+        title: "Accommodation",
+        desc: "Beachfront resorts and hotels"
+      },
+      {
+        title: "Meals",
+        desc: "Daily breakfast and seafood dinners"
+      },
+      {
+        title: "Transport",
+        desc: "Air-conditioned vehicle with driver"
+      },
+      {
+        title: "Guide",
+        desc: "English speaking tour guide"
+      }
     ]
   },
   {
@@ -338,6 +478,24 @@ const baseToursData: Tour[] = [
         day: 5,
         location: "Departure",
         images: ["https://images.unsplash.com/photo-1736142260757-6effc558100a?q=80&w=1073&auto=format&fit=crop"]
+      }
+    ],
+    included: [
+      {
+        title: "Accommodation",
+        desc: "4-star city center hotel"
+      },
+      {
+        title: "Meals",
+        desc: "Daily breakfast buffet"
+      },
+      {
+        title: "Transport",
+        desc: "Airport pickup and drop-off"
+      },
+      {
+        title: "City Tour",
+        desc: "Half-day guided city tour"
       }
     ]
   },
@@ -399,6 +557,24 @@ const baseToursData: Tour[] = [
         location: "Scenic Train Ride",
         images: ["https://images.unsplash.com/photo-1587905069134-008460d7a072?q=80&w=1074&auto=format&fit=crop"]
       }
+    ],
+    included: [
+      {
+        title: "Accommodation",
+        desc: "Mountain view tea estate hotels"
+      },
+      {
+        title: "Meals",
+        desc: "Full board with local specialties"
+      },
+      {
+        title: "Transport",
+        desc: "Private vehicle and train tickets"
+      },
+      {
+        title: "Guide",
+        desc: "Professional mountain guide"
+      }
     ]
   },
   {
@@ -458,6 +634,24 @@ const baseToursData: Tour[] = [
         day: 5,
         location: "Farewell Breakfast",
         images: ["https://images.unsplash.com/photo-1700739746391-26561c282181?q=80&w=735&auto=format&fit=crop"]
+      }
+    ],
+    included: [
+      {
+        title: "Accommodation",
+        desc: "Luxury honeymoon suites"
+      },
+      {
+        title: "Meals",
+        desc: "All meals with private dining options"
+      },
+      {
+        title: "Transport",
+        desc: "Private luxury vehicle transfers"
+      },
+      {
+        title: "Champagne",
+        desc: "Welcome champagne and chocolates"
       }
     ]
   },
@@ -524,6 +718,24 @@ const baseToursData: Tour[] = [
         location: "Return to Colombo",
         images: ["https://images.unsplash.com/photo-1736142260757-6effc558100a?q=80&w=1073&auto=format&fit=crop"]
       }
+    ],
+    included: [
+      {
+        title: "Accommodation",
+        desc: "Heritage and eco lodges"
+      },
+      {
+        title: "Meals",
+        desc: "Full board with traditional meals"
+      },
+      {
+        title: "Transport",
+        desc: "Air-conditioned vehicle throughout"
+      },
+      {
+        title: "Guide",
+        desc: "Archaeological expert guide"
+      }
     ]
   },
   {
@@ -583,6 +795,24 @@ const baseToursData: Tour[] = [
         day: 5,
         location: "Return Journey",
         images: ["https://images.unsplash.com/photo-1700739746391-26561c282181?q=80&w=735&auto=format&fit=crop"]
+      }
+    ],
+    included: [
+      {
+        title: "Accommodation",
+        desc: "Wildlife lodges near parks"
+      },
+      {
+        title: "Meals",
+        desc: "All meals at safari camps"
+      },
+      {
+        title: "Transport",
+        desc: "Safari jeeps with experienced drivers"
+      },
+      {
+        title: "Park Permits",
+        desc: "All national park entry fees"
       }
     ]
   },
@@ -644,8 +874,206 @@ const baseToursData: Tour[] = [
         location: "Beach Paradise",
         images: ["https://images.unsplash.com/photo-1700739746391-26561c282181?q=80&w=735&auto=format&fit=crop"]
       }
+    ],
+    included: [
+      {
+        title: "Accommodation",
+        desc: "Mix of beach, hill, and city hotels"
+      },
+      {
+        title: "Meals",
+        desc: "Daily breakfast and select dinners"
+      },
+      {
+        title: "Transport",
+        desc: "Private deluxe vehicle throughout"
+      },
+      {
+        title: "Guide",
+        desc: "Multi-lingual expert tour guide"
+      }
     ]
   },
+];
+
+/* ─── Booking Form Data ─── */
+const bookingFormData: BookingForm = {
+  id: "tour-booking",
+  title: "Book Your Dream Tour",
+  description: "Fill out the form below to reserve your perfect Sri Lankan adventure",
+  fields: [
+    {
+      name: "fullName",
+      label: "Full Name",
+      type: "text",
+      placeholder: "Enter your full name",
+      required: true,
+      validation: "^[a-zA-Z\\s]{3,50}$"
+    },
+    {
+      name: "email",
+      label: "Email Address",
+      type: "email",
+      placeholder: "your.email@example.com",
+      required: true,
+      validation: "^[^@]+@[^@]+\\.[^@]+$"
+    },
+    {
+      name: "phone",
+      label: "Phone Number",
+      type: "tel",
+      placeholder: "+1 (555) 000-0000",
+      required: true,
+      validation: "^\\+?[0-9\\s\\-()]{10,}$"
+    },
+    {
+      name: "tourId",
+      label: "Select Tour",
+      type: "select",
+      required: true,
+      options: [
+        { value: "tour-1", label: "Own Sweet Time On The Beach" },
+        { value: "tour-2", label: "Ceylon Heritage Tour" },
+        { value: "tour-3", label: "Ceylon Hill Tour" },
+        { value: "tour-4", label: "East Coast" },
+        { value: "tour-5", label: "Enjoy 3 Nights In Colombo" },
+        { value: "tour-6", label: "Wonders Of Hill Countries" },
+        { value: "tour-7", label: "Honeymoon / Romantic Special Tour" },
+        { value: "tour-8", label: "Ancient Of Ceylon" },
+        { value: "tour-9", label: "Paradise Nature & Wild Life" },
+        { value: "tour-10", label: "Serendipity Of Sri Lanka" }
+      ]
+    },
+    {
+      name: "startDate",
+      label: "Preferred Start Date",
+      type: "date",
+      required: true
+    },
+    {
+      name: "numberOfPeople",
+      label: "Number of Travelers",
+      type: "number",
+      placeholder: "Enter number of people",
+      required: true,
+      validation: "^[1-9][0-9]*$"
+    },
+    {
+      name: "accommodationType",
+      label: "Accommodation Preference",
+      type: "select",
+      required: true,
+      options: [
+        { value: "luxury", label: "Luxury" },
+        { value: "comfort", label: "Comfort" },
+        { value: "budget", label: "Budget" },
+        { value: "standard", label: "Standard" }
+      ]
+    },
+    {
+      name: "specialRequests",
+      label: "Special Requests or Notes",
+      type: "textarea",
+      placeholder: "Any special requirements, dietary restrictions, or additional notes...",
+      required: false
+    }
+  ],
+  submitButtonText: "Book Now",
+  successMessage: "Thank you for your booking! We will contact you within 24 hours to confirm your reservation."
+};
+
+/* ─── Map Locations Data ─── */
+const mapLocationsData: MapLocation[] = [
+  {
+    id: "loc-1",
+    name: "Mirissa Beach",
+    latitude: 5.9497,
+    longitude: 80.7891,
+    description: "Beautiful southern beach known for whale watching and relaxation",
+    category: "Beach",
+    image: "https://images.unsplash.com/photo-1462400362591-9ca55235346a?q=80&w=1132&auto=format&fit=crop"
+  },
+  {
+    id: "loc-2",
+    name: "Sigiriya Rock Fortress",
+    latitude: 7.9575,
+    longitude: 80.7597,
+    description: "Ancient rock fortress with UNESCO World Heritage status",
+    category: "Ancient",
+    image: "https://images.unsplash.com/photo-1665849050430-5e8c16bacf7e?q=80&w=687&auto=format&fit=crop"
+  },
+  {
+    id: "loc-3",
+    name: "Anuradhapura",
+    latitude: 8.3128,
+    longitude: 80.3899,
+    description: "Ancient sacred city with Buddhist temples and historical ruins",
+    category: "Heritage",
+    image: "https://images.unsplash.com/photo-1566522650166-bd8b3e3a2b4b?q=80&w=1171&auto=format&fit=crop"
+  },
+  {
+    id: "loc-4",
+    name: "Kandy",
+    latitude: 6.9271,
+    longitude: 80.6368,
+    description: "Cultural heart of Sri Lanka with the sacred Temple of the Tooth",
+    category: "Heritage",
+    image: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=1196&auto=format&fit=crop"
+  },
+  {
+    id: "loc-5",
+    name: "Nuwara Eliya",
+    latitude: 6.9497,
+    longitude: 80.7891,
+    description: "Hill country city famous for tea plantations and cool climate",
+    category: "Hill",
+    image: "https://images.unsplash.com/photo-1708338914870-797de586672d?q=80&w=1332&auto=format&fit=crop"
+  },
+  {
+    id: "loc-6",
+    name: "Yala National Park",
+    latitude: 6.3709,
+    longitude: 81.4732,
+    description: "Wildlife sanctuary with the highest concentration of leopards",
+    category: "Wildlife",
+    image: "https://plus.unsplash.com/premium_photo-1661876643563-00656cbd1d41?q=80&w=1180&auto=format&fit=crop"
+  },
+  {
+    id: "loc-7",
+    name: "Colombo",
+    latitude: 6.9271,
+    longitude: 79.8612,
+    description: "Capital city with colonial architecture, shopping, and nightlife",
+    category: "Heritage",
+    image: "https://images.unsplash.com/photo-1736142260757-6effc558100a?q=80&w=1073&auto=format&fit=crop"
+  },
+  {
+    id: "loc-8",
+    name: "Ella",
+    latitude: 6.8500,
+    longitude: 81.0500,
+    description: "Scenic hill town with stunning views and hiking trails",
+    category: "Hill",
+    image: "https://images.unsplash.com/photo-1639401672371-0c4be4389107?q=80&w=735&auto=format&fit=crop"
+  },
+  {
+    id: "loc-9",
+    name: "Polonnaruwa",
+    latitude: 7.9397,
+    longitude: 81.0003,
+    description: "Medieval capital with ancient temples and architectural ruins",
+    category: "Ancient",
+    image: "https://images.unsplash.com/photo-1594391045445-64ea3c6ff16b?q=80&w=1074&auto=format&fit=crop"
+  },
+  {
+    id: "loc-10",
+    name: "Galle Fort",
+    latitude: 6.0535,
+    longitude: 80.2157,
+    description: "Historic coastal fortress with well-preserved fortifications",
+    category: "Heritage",
+    image: "https://images.unsplash.com/photo-1592905169881-eff95fe441ed?q=80&w=735&auto=format&fit=crop"
+  }
 ];
 
 /**
@@ -675,6 +1103,37 @@ export function getToursByCategory(category: string): Tour[] {
  */
 export function getTourById(id: string): Tour | undefined {
   return baseToursData.find((tour) => tour.id === id);
+}
+
+/**
+ * Get booking form data
+ */
+export function getBookingFormData(): BookingForm {
+  return bookingFormData;
+}
+
+/**
+ * Get all map locations
+ */
+export function getMapLocations(): MapLocation[] {
+  return mapLocationsData;
+}
+
+/**
+ * Get map locations by category
+ */
+export function getMapLocationsByCategory(category: string): MapLocation[] {
+  if (category === "All") {
+    return mapLocationsData;
+  }
+  return mapLocationsData.filter((location) => location.category === category);
+}
+
+/**
+ * Get a single map location by ID
+ */
+export function getMapLocationById(id: string): MapLocation | undefined {
+  return mapLocationsData.find((location) => location.id === id);
 }
 
 export const tourData = getTourData();
