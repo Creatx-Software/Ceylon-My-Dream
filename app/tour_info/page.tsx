@@ -14,14 +14,18 @@ import { cn } from '../lib/utils';
 import Image from 'next/image';
 
 function TourInfoContent() {
+  const [checkIn, setCheckIn] = useState<Date | undefined>(undefined);
+  const [checkOut, setCheckOut] = useState<Date | undefined>(undefined);
+  const [guests, setGuests] = useState('');
+  const [email, setEmail] = useState('');
+  const [note, setNote] = useState('');
+  const [galleryIndex, setGalleryIndex] = useState(0);
+
   const searchParams = useSearchParams();
   const tourId = searchParams.get('id') || 'tour-1';
 
   // Get the tour by ID from URL parameter
   const tour = getTourById(tourId);
-
-  // Gallery state
-  const [galleryIndex, setGalleryIndex] = useState(0);
 
   const nextGallery = useCallback(() => {
     if (!tour) return;
@@ -40,12 +44,6 @@ function TourInfoContent() {
       </div>
     );
   }
-
-  const [checkIn, setCheckIn] = useState<Date | undefined>(undefined);
-  const [checkOut, setCheckOut] = useState<Date | undefined>(undefined);
-  const [guests, setGuests] = useState('');
-  const [email, setEmail] = useState('');
-  const [note, setNote] = useState('');
 
   return (
     <main>
