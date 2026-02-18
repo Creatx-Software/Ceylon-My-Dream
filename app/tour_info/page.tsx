@@ -13,6 +13,55 @@ import { Calendar } from '../components/ui/Calendar';
 import { cn } from '../lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+
+const viewportConfig = { once: true, amount: 0.2 };
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -36 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 36 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.93, y: 14 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const gentleReveal = {
+  hidden: { opacity: 0, y: 22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 function TourInfoContent() {
   const [checkIn, setCheckIn] = useState<Date | undefined>(undefined);
@@ -51,7 +100,13 @@ function TourInfoContent() {
   return (
     <main>
       {/* Hero */}
-      <section className="mt-4 px-4 sm:px-6 lg:px-12">
+      <motion.section
+        className="mt-4 px-4 sm:px-6 lg:px-12"
+        variants={gentleReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+      >
         <div className="max-w-8xl mx-auto relative h-[60vh] md:min-h-[740px] lg:min-h-[680px] overflow-hidden rounded-[1.5rem]">
           {/* Background image – transitions on active card */}
           {tour.galleryImages.map((img, i) => (
@@ -66,14 +121,27 @@ function TourInfoContent() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
           {/* Headline */}
-          <div className="relative z-10 container mx-auto px-4 lg:px-8 pb-6 sm:pb-8">
+          <motion.div
+            className="relative z-10 container mx-auto px-4 lg:px-8 pb-6 sm:pb-8"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+          >
             <h1 className="mt-32 md:max-w-4xl ml-10 text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
               {tour.title}
             </h1>
-          </div>
+          </motion.div>
 
           {/* Horizontal scrollable cards */}
-          <div className="relative z-10 container mx-auto px-4 lg:px-8 pb-8 sm:pb-12">
+          <motion.div
+            className="relative z-10 container mx-auto px-4 lg:px-8 pb-8 sm:pb-12"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ delay: 0.12 }}
+          >
             <div className="flex items-center gap-4">
               {/* Cards container */}
               <div className="flex-1 relative max-w-[180px] md:max-w-sm lg:max-w-xl xl:max-w-4xl">
@@ -142,10 +210,17 @@ function TourInfoContent() {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Price info - positioned independently at right corner of background image */}
-          <div className="absolute bottom-8 right-8 z-20">
+          <motion.div
+            className="absolute bottom-8 right-8 z-20"
+            variants={fadeRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ delay: 0.18 }}
+          >
             <div className="bg-transparent rounded-xl p-4">
               <div className="text-center md:text-left">
                 <span className="font-inter text-sm md:text-2xl font-semibold text-white block mb-1">
@@ -159,34 +234,68 @@ function TourInfoContent() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-      </section>
+      </motion.section>
 
       {/* ===== PACKAGE OVERVIEW + ITINERARY ===== */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-background">
+      <motion.section
+        className="py-12 sm:py-16 lg:py-20 bg-background"
+        variants={gentleReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+      >
         <div className="container mx-auto">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
             {/* Left: Overview + Policies */}
-            <div>
-              <h2 className="font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl mb-6">
+            <motion.div
+              variants={fadeLeft}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
+              <motion.h2
+                className="font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl mb-6"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportConfig}
+              >
                 Package Overview
-              </h2>
+              </motion.h2>
               {tour.overview.map((p, i) => (
-                <p
+                <motion.p
                   key={i}
                   className="text-md text-[#7A7777] leading-relaxed font-inter font-regular mb-4"
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewportConfig}
+                  transition={{ delay: i * 0.05 }}
                 >
                   {p}
-                </p>
+                </motion.p>
               ))}
 
-              <h2 className="mt-12 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl mb-6">
+              <motion.h2
+                className="mt-12 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl mb-6"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportConfig}
+              >
                 Additional Details And Policies
-              </h2>
+              </motion.h2>
 
-              <div className="space-y-5 animate-on-scroll">
+              <motion.div
+                className="space-y-5"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportConfig}
+              >
                 <div>
                   <h4 className="font-inter font-semibold text-[#423939] text-xl mb-1">Travel Validity</h4>
                   <p className="text-md text-[#7A7777] leading-relaxed font-inter font-regular">{tour.policies.travelValidity}</p>
@@ -209,11 +318,17 @@ function TourInfoContent() {
                     </p>
                   ))}
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Right: Day-by-day Itinerary */}
-            <div className="relative">
+            <motion.div
+              className="relative"
+              variants={fadeRight}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+            >
               {/* Vertical timeline line */}
               <div 
                 className="absolute left-1/2 top-0 w-0.5 bg-[#FBB03B]" 
@@ -226,9 +341,14 @@ function TourInfoContent() {
                 {tour.itinerary.map((day, i) => {
                   const isLeft = i % 2 === 0;
                   return (
-                    <div
+                    <motion.div
                       key={day.day}
-                      className="animate-on-scroll relative"
+                      className="relative"
+                      variants={fadeUp}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={viewportConfig}
+                      transition={{ delay: i * 0.06 }}
                     >
                       {/* Timeline dot */}
                       <div className="flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
@@ -278,17 +398,23 @@ function TourInfoContent() {
                         {/* Empty side */}
                         <div className="w-[45%]" />
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ===== WHAT'S INCLUDED ===== */}
-      <section className="py-12 sm:py-16 bg-[#D9D9D9] relative">
+      <motion.section
+        className="py-12 sm:py-16 bg-[#D9D9D9] relative"
+        variants={gentleReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         {/* Background image */}
         <div className="absolute inset-0">
           <img
@@ -300,15 +426,26 @@ function TourInfoContent() {
         </div>
 
         <div className="container mx-auto relative z-10">
-          <h2 className="font-inter text-3xl font-semibold text-white md:text-5xl mb-6">
+          <motion.h2
+            className="font-inter text-3xl font-semibold text-white md:text-5xl mb-6"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+          >
             What&apos;s Included
-          </h2>
+          </motion.h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-10 text-center">
             {tour.included.map((item, i) => {
               return (
-                <div
+                <motion.div
                   key={i}
-                  className="mt-4 p-5 sm:p-6 rounded-2xl bg-white/10 backdrop-blur border border-white/40 animate-on-scroll-scale"
+                  className="mt-4 p-5 sm:p-6 rounded-2xl bg-white/10 backdrop-blur border border-white/40"
+                  variants={scaleIn}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewportConfig}
+                  transition={{ delay: i * 0.08 }}
                 >
                   <h4 className="font-inter text-sm md:text-lg font-semibold text-white mb-1">
                     {item.title}
@@ -316,16 +453,28 @@ function TourInfoContent() {
                   <p className="text-xs md:text-sm text-white leading-relaxed font-inter font-regular">
                     {item.desc}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ===== BOOKING FORM + MAP ===== */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-12">
-        <div className="max-w-8xl mx-auto relative min-h-[150vh] sm:min-h-[150vh] md:min-h-[100vh] lg:min-h-[60vh] overflow-hidden rounded-[1.5rem]">
+      <motion.section
+        className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-12"
+        variants={gentleReveal}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <motion.div
+          className="max-w-8xl mx-auto relative min-h-[150vh] sm:min-h-[150vh] md:min-h-[100vh] lg:min-h-[60vh] overflow-hidden rounded-[1.5rem]"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+        >
           {/* Booking bg */}
           <div className="absolute inset-0">
             <Image
@@ -340,7 +489,13 @@ function TourInfoContent() {
           <div className="container mx-auto relative z-10 h-full pt-8 pb-10">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch h-full">
               {/* Booking Form */}
-              <div className="bg-white/10 backdrop-blur-sm border border-white/50 rounded-2xl p-6 sm:p-8 animate-on-scroll-left h-full flex flex-col">
+              <motion.div
+                className="bg-white/10 backdrop-blur-sm border border-white/50 rounded-2xl p-6 sm:p-8 h-full flex flex-col"
+                variants={fadeLeft}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportConfig}
+              >
                 <h2 className="font-inter text-3xl md:text-5xl font-medium text-white mb-6">
                   Want to Join Us?
                 </h2>
@@ -514,10 +669,16 @@ function TourInfoContent() {
                     </Button>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Map */}
-              <div className="rounded-2xl overflow-hidden shadow-lg animate-on-scroll-right h-full flex">
+              <motion.div
+                className="rounded-2xl overflow-hidden shadow-lg h-full flex"
+                variants={fadeRight}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportConfig}
+              >
                 <iframe
                   title="Sri Lanka Map"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2025938.522792887!2d79.38588715!3d7.8731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2593cf65a1e9d%3A0xe13da4b400e2d38c!2sSri%20Lanka!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s"
@@ -528,11 +689,11 @@ function TourInfoContent() {
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
     </main>
     );
 }
