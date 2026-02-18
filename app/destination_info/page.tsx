@@ -5,8 +5,11 @@ import { motion } from 'framer-motion';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { useSearchParams } from 'next/navigation';
-import { getDestinationById, destinationsData } from '../lib/destinationsData';
+import { getDestinationById } from '../lib/destinationsData';
 import { Star } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from '../components/ui/Button';
 
 const viewportConfig = { once: true, amount: 0.3 };
 
@@ -34,12 +37,6 @@ function DestinationInfoContent() {
 
     const destination = getDestinationById(destinationId);
 
-    // Get overview images from destinations data (using first 2 destinations as examples)
-    const overviewImages = [
-        destinationsData[0]?.img || 'https://images.unsplash.com/photo-1724031948257-8b3c68232ccc?q=80&w=670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-        destinationsData[1]?.img || 'https://images.unsplash.com/photo-1755099343217-649527cd07e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    ];
-
     if (!destination) {
         return (
             <div className="flex items-center justify-center h-[60vh]">
@@ -47,6 +44,8 @@ function DestinationInfoContent() {
             </div>
         );
     }
+
+    const overviewImages = destination.overviewImages;
 
     return (
         <main className="mb-0">
@@ -60,7 +59,7 @@ function DestinationInfoContent() {
                     />
 
                     <div className="absolute inset-0 bg-black/40" />
-                    <div className="relative h-full flex items-start justify-start px-4">
+                    <div className="relative h-full flex items-start justify-start container mx-auto">
                         <motion.div
                             initial={{
                                 opacity: 0,
@@ -74,7 +73,7 @@ function DestinationInfoContent() {
                                 duration: 0.8,
                                 ease: 'easeOut',
                             }}
-                            className="max-w-4xl mx-auto mt-40 text-left ml-20"
+                            className="max-w-4xl mx-auto mt-40 text-left ml-0"
                         >
                             <h1 className="text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
                                 VISIT {destination.name.toUpperCase()}
@@ -108,9 +107,10 @@ function DestinationInfoContent() {
                 viewport={{ once: true, amount: 0.15 }}
             >
                 <div className="container mx-auto">
-                    <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
                         {/* Left: Overview */}
                         <motion.div
+                            className="order-1"
                             variants={fadeLeft}
                             initial="hidden"
                             whileInView="visible"
@@ -133,24 +133,26 @@ function DestinationInfoContent() {
 
                         {/* Right: Images */}
                         <motion.div
+                            className="order-2 mt-10 lg:mt-0 flex justify-center items-center"
                             initial="hidden"
                             whileInView="visible"
                             viewport={viewportConfig}
-                            className="space-y-4"
                         >
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="relative overflow-hidden rounded-xl">
-                                    <img
-                                        src={overviewImages[0]}
-                                        alt="Overview image 1"
-                                        className="w-full h-40 object-cover transition-transform duration-500 hover:scale-110"
-                                    />
-                                </div>
-                                <div className="relative overflow-hidden rounded-xl">
+                            <div className="relative w-fit scale-[1] lg:scale-[1.2] 2xl:scale-[1.5]">
+                                {/* Large image */}
+                                <div className="w-60 h-48 rounded-xl overflow-hidden shadow-xl">
                                     <img
                                         src={overviewImages[1]}
+                                        alt="Overview image 1"
+                                        className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
+                                    />
+                                </div>
+                                {/* Small image - overlapping */}
+                                <div className="absolute -top-16 -right-20 w-40 h-32 rounded-xl overflow-hidden shadow-xl">
+                                    <img
+                                        src={overviewImages[0]}
                                         alt="Overview image 2"
-                                        className="w-full h-40 object-cover transition-transform duration-500 hover:scale-110"
+                                        className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
                             </div>
@@ -158,6 +160,104 @@ function DestinationInfoContent() {
                     </div>
                 </div>
             </motion.section>
+
+            {/* gallery images */}
+            <motion.section
+                className="py-12 sm:py-16 lg:py-12 bg-background -mt-10"
+                variants={gentleReveal}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.15 }}
+            >
+                <div className="container mx-auto">
+                    <style jsx>{`
+                        .scrollbar-hide::-webkit-scrollbar {
+                            display: none;
+                        }
+                        .scrollbar-hide {
+                            -ms-overflow-style: none;
+                            scrollbar-width: none;
+                        }
+                    `}</style>
+                    <div className="relative">
+                        <div className="flex gap-4 pb-4 cursor-grab active:cursor-grab select-none overflow-x-auto scrollbar-hide" 
+                             style={{ 
+                                 scrollBehavior: 'smooth', 
+                                 scrollSnapType: 'x mandatory',
+                                 WebkitOverflowScrolling: 'touch'
+                             }}>
+                            {destination.galleryImages?.slice(0, 4).map((image, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial="hidden"
+                                    animate="visible"
+                                    variants={fadeUp}
+                                    transition={{ delay: index * 0.1 }}
+                                    className="flex-shrink-0"
+                                    style={{ 
+                                        scrollSnapAlign: 'start',
+                                        marginTop: index % 2 === 1 ? '4rem' : '0'
+                                    }}
+                                >
+                                    <div className="relative overflow-hidden rounded-2xl shadow-lg">
+                                        <img
+                                            src={image}
+                                            alt={`Gallery image ${index + 1}`}
+                                            className="w-80 h-96 object-cover transition-transform duration-300 hover:scale-105"
+                                        />
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </motion.section>
+
+            {/* Get Started */}
+        <section className="mt-4 px-4 sm:px-6 lg:px-12 pb-8">
+          <div className="max-w-8xl mx-auto relative h-[50vh] min-h-[500px] overflow-hidden rounded-[1.5rem]">
+            <div className="absolute inset-0">
+              <Image
+                src="https://plus.unsplash.com/premium_photo-1661960937960-1883bf00f480?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Ready background"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="relative h-full flex items-center justify-center px-4 text-center">
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 40,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.8,
+                  ease: 'easeOut',
+                }}
+                className="max-w-3xl mx-auto"
+              >
+                <h1 className="mt-10 text-4xl md:text-6xl text-white tracking-tight drop-shadow-lg font-inter font-medium">
+                  Adventure awaits—let the journey begin!
+                </h1>
+                <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium md:text-lg">
+                  Experience the best of Sri Lanka with Ceylon My Dream.
+                </p>
+                <Link href="">
+                  <Button size="lg" className="mt-8 rounded-full px-8">
+                    Discover More
+                  </Button>
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+        </section>
         </main>
     );
 }
