@@ -213,7 +213,7 @@ function DestinationInfoContent() {
                 </div>
             </motion.section>
 
-            {/* Get Started */}
+        {/* Get Started */}
         <section className="mt-4 px-4 sm:px-6 lg:px-12 pb-8">
           <div className="max-w-8xl mx-auto relative h-[50vh] min-h-[500px] overflow-hidden rounded-[1.5rem]">
             <div className="absolute inset-0">

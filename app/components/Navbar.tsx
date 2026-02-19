@@ -11,8 +11,8 @@ const navLinks = [
   { name: 'About Us', href: '/about' },
   { name: 'Tours', href: '/tours' },
   { name: 'Destinations', href: '/destinations' },
-  { name: 'Adventure', href: '#' },
-  { name: 'Gallery', href: '#' },
+  { name: 'Adventure', href: '/adventure' },
+  { name: 'Gallery', href: '/gallery' },
   { name: 'Blog', href: '#' },
   { name: 'Contact Us', href: '/contact' }
 ];
