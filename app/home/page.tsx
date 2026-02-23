@@ -5,9 +5,11 @@ import { motion } from 'framer-motion';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Calendar as CalendarIcon, Users, ArrowRight, UserPen, HeartHandshake, Star, ChartNoAxesCombined, Languages } from 'lucide-react';
 import { useState, useEffect, useCallback } from "react";
 import { homeData } from '../lib/homeData';
+import { destinationsData } from '../lib/destinationsData';
 import { tourData } from '../lib/toursData';
 import { Button } from '../components/ui/ButtonMain';
 import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popover';
@@ -18,6 +20,7 @@ import { Button as Button2 } from '../components/ui/Button';
 import { Mail } from 'lucide-react';
 
 export default function HomePage() {
+  const DESTINATION_CARD_COUNT = 6;
   const [heroIndex, setHeroIndex] = useState(0);
   const [checkIn, setCheckIn] = useState<Date | undefined>(undefined);
   const [checkOut, setCheckOut] = useState<Date | undefined>(undefined);
@@ -25,10 +28,25 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState("All");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const featuredDestinations = destinationsData
+    .slice(0, DESTINATION_CARD_COUNT)
+    .map((destination) => ({
+      name: destination.name,
+      image: destination.img,
+      link: `/destination_info?id=${destination.id}`,
+    }));
+  const tourCategories = ["All", ...Array.from(new Set(tourData.tours.map((tour) => tour.category)))] as const;
+  const filteredTours = tourData.tours.filter((tour) => activeTab === "All" || tour.category === activeTab);
+  const getVisibleTourCards = () => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 768 && window.innerWidth < 1024) return 4;
+    }
+    return 3;
+  };
 
   const goNext = useCallback(() => setHeroIndex((i) => (i + 1) % homeData.heroSlides.length), []);
   const goPrev = useCallback(() => setHeroIndex((i) => (i - 1 + homeData.heroSlides.length) % homeData.heroSlides.length), []);
-  
+
   const getVisibleCards = () => {
     if (typeof window !== 'undefined') {
       if (window.innerWidth >= 1024) return 3;
@@ -56,7 +74,7 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, [goNext]);
 
-  
+
   const handleCheckInSelect = (date: Date | Date[] | undefined) => {
     if (date instanceof Date) {
       setCheckIn(date);
@@ -81,24 +99,23 @@ export default function HomePage() {
             <div className="absolute inset-0">
               {/* Slides */}
               {homeData.heroSlides.map((slide, i) => (
-              <Image
-                key={i}
-                src={slide.img}
-                alt={slide.title}
-                fill
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
-                  i === heroIndex ? "opacity-100" : "opacity-0"
-                }`}
-                priority={i === 0}
-              />
+                <Image
+                  key={i}
+                  src={slide.img}
+                  alt={slide.title}
+                  fill
+                  className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${i === heroIndex ? "opacity-100" : "opacity-0"
+                    }`}
+                  priority={i === 0}
+                />
               ))}
               <div className="absolute inset-0 bg-black/5" />
 
               {/* Chevron Buttons */}
               <button
                 onClick={goPrev}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-white/50 backdrop-blur-sm border border-white/30 text-[#1E1E1E] transition-colors hover:bg-white/60"
-                  aria-label="Previous slide"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-white/50 backdrop-blur-sm border border-white/30 text-[#1E1E1E] transition-colors hover:bg-white/60"
+                aria-label="Previous slide"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -135,7 +152,7 @@ export default function HomePage() {
                   {homeData.heroSlides[heroIndex].description}
                 </p>
               </motion.div>
-              
+
               {/* Search Bar - Independent from slides */}
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
@@ -230,7 +247,7 @@ export default function HomePage() {
               >
                 Your Sri Lanka Tour Starts Here
               </motion.h2>
-              
+
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -240,7 +257,7 @@ export default function HomePage() {
               >
                 At Ceylon My Dream, we create soulful Sri Lanka journeys that go beyond sightseeing. From misty hills to ancient cities and hidden beaches, every moment is crafted to leave lasting memories.
               </motion.p>
-              
+
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -297,24 +314,29 @@ export default function HomePage() {
 
               {/* Two Buttons */}
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <motion.button
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 1.1 }}
-                  className="px-8 py-3 bg-[#FBB03B] text-white font-inter font-semibold rounded-full hover:bg-[#FBB03B]/90 transition-colors"
-                >
-                  Explore Our Tours
-                </motion.button>
-                <motion.button
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 1.2 }}
-                  className="px-8 py-3 border-2 border-[#FBB03B] text-[#FBB03B] font-inter font-semibold rounded-full hover:bg-[#FBB03B] hover:text-white transition-colors"
-                >
-                  Explore Sri Lankan Destinations
-                </motion.button>
+                <Link href="/tours">
+                  <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 1.1 }}
+                    className="px-8 py-3 bg-[#FBB03B] text-white font-inter font-semibold rounded-full hover:bg-[#FBB03B]/90 transition-colors"
+                  >
+                    Explore Our Tours
+                  </motion.button>
+                </Link>
+
+                <Link href="/destinations">
+                  <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 1.2 }}
+                    className="px-8 py-3 border-2 border-[#FBB03B] text-[#FBB03B] font-inter font-semibold rounded-full hover:bg-[#FBB03B] hover:text-white transition-colors"
+                  >
+                    Explore Sri Lankan Destinations
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
 
@@ -367,7 +389,7 @@ export default function HomePage() {
                 >
                   Explore Beautiful Places Now
                 </motion.h2>
-                
+
                 <motion.p
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -378,7 +400,7 @@ export default function HomePage() {
                   Discover Sri Lanka — from ancient cities and rich culture to golden beaches and misty hill country.
                 </motion.p>
               </motion.div>
-              
+
               {/* Right Side - Explore More Button */}
               <motion.div
                 initial={{ opacity: 0, x: 60 }}
@@ -387,39 +409,38 @@ export default function HomePage() {
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
                 className="flex justify-center lg:justify-end"
               >
-                <Button className="rounded-full px-8 py-3 text-base font-inter font-semibold">
-                  Explore More <ArrowRight size={14} className="ml-2" />
-                </Button>
+                <Link href="/destinations">
+                  <Button className="rounded-full px-8 py-3 text-base font-inter font-semibold">
+                    Explore More <ArrowRight size={14} className="ml-2" />
+                  </Button>
+                </Link>
               </motion.div>
             </div>
-            
+
             {/* Bottom Section - Destination Cards (Full Width) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {homeData.destinations.map((destination, index) => (
+              {featuredDestinations.map((destination, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-                  className={`relative group cursor-pointer overflow-hidden rounded-3xl ${
-                    index === 0 
-                      ? 'md:row-span-2' 
-                      : index === 4
+                  className={`relative group cursor-pointer overflow-hidden rounded-3xl ${index === 0
+                    ? 'md:row-span-2'
+                    : index === 4
                       ? 'md:row-span-2 md:col-start-2'
                       : ''
-                  }`}
+                    }`}
                 >
-                  <div className={`relative ${
-                    index === 0 || index === 4 
-                      ? 'h-96 md:h-full' 
-                      : 'h-48 md:h-48'
-                  }`}>
-                    <Image
+                  <div className={`relative ${index === 0 || index === 4
+                    ? 'h-96 md:h-full'
+                    : 'h-48 md:h-48'
+                    }`}>
+                    <img
                       src={destination.image}
                       alt={destination.name}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-transparent" />
                     <div className="absolute bottom-3 left-3 right-3 p-3 bg-white/20 backdrop-blur-md rounded-xl">
@@ -463,7 +484,7 @@ export default function HomePage() {
                 Exceptional Service from a Trusted Sri Lanka Travel Agency
               </motion.h2>
             </div>
-            
+
             {/* 5 Cards Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {homeData.whyChooseUs.map((item, index) => {
@@ -475,7 +496,7 @@ export default function HomePage() {
                   Languages
                 };
                 const IconComponent = iconComponents[item.icon as keyof typeof iconComponents];
-                
+
                 return (
                   <motion.div
                     key={index}
@@ -523,14 +544,14 @@ export default function HomePage() {
             </div>
 
             {/* Tabs */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="flex justify-center gap-3 mb-10 animate-on-scroll flex-wrap"
             >
-              {["All", "Ancient", "Heritage", "Hill"].map((tab, index) => (
+              {tourCategories.map((tab, index) => (
                 <motion.button
                   key={tab}
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -538,11 +559,10 @@ export default function HomePage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-2 rounded-full text-sm font-inter font-semibold transition-colors border ${
-                    activeTab === tab
-                      ? "bg-[#FBB03B] text-white border-[#FBB03B]"
-                      : "bg-transparent text-[#717171] border-border hover:border-[#717171] hover:text-primary"
-                  }`}
+                  className={`px-6 py-2 rounded-full text-sm font-inter font-semibold transition-colors border ${activeTab === tab
+                    ? "bg-[#FBB03B] text-white border-[#FBB03B]"
+                    : "bg-transparent text-[#717171] border-border hover:border-[#717171] hover:text-primary"
+                    }`}
                 >
                   {tab}
                 </motion.button>
@@ -551,45 +571,47 @@ export default function HomePage() {
 
             {/* Tour Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-              {tourData.tours
-                .filter((tour) => activeTab === "All" || tour.category === activeTab)
-                .slice(0, typeof window !== 'undefined' && window.innerWidth >= 1024 ? 3 : typeof window !== 'undefined' && window.innerWidth >= 768 ? 4 : 3)
+              {filteredTours
+                .slice(0, getVisibleTourCards())
                 .map((tour, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
-                  className="rounded-2xl overflow-hidden bg-white group shadow-sm animate-on-scroll"
-                >
-                  <div className="relative h-56 sm:h-60 overflow-hidden">
-                    <img src={tour.img} alt={tour.title} className="h-full w-full object-cover transition-transform duration-500 rounded-2xl" />
-                    {/* Rating badge */}
-                    <div className="absolute top-3 left-3 flex items-center gap-1 bg-[#0C111F]/40 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1.5 rounded-full">
-                      <Star size={12} className="text-[#FBB03B] fill-[#FBB03B]" />
-                      {tour.rating}
-                    </div>
-                    {/* Duration badge */}
-                    <div className="absolute bottom-3 right-3 bg-white/18 backdrop-blur-sm text-white text-xs font-inter font-semibold px-3 py-1.5 rounded-full border border-white/30">
-                      {tour.duration}
-                    </div>
-                  </div>
-                  <div className="p-3">
-                    <h3 className="text-base sm:text-lg font-semibold text-black mb-2">{tour.title}</h3>
-                    <p className="text-[#7A7777] text-sm mb-4 font-inter font-medium">{tour.desc}</p>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-xs text-[#0C111F]/60 font-inter font-medium">Price</p>
-                        <span className="text-[#0C111F] font-inter font-bold text-lg">$ {tour.price}</span>
+                  <motion.div
+                    key={tour.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
+                    className="rounded-2xl overflow-hidden bg-white group shadow-sm animate-on-scroll"
+                  >
+                    <div className="relative h-56 sm:h-60 overflow-hidden">
+                      <img src={tour.img} alt={tour.title} className="h-full w-full object-cover transition-transform duration-500 rounded-2xl" />
+                      {/* Rating badge */}
+                      <div className="absolute top-3 left-3 flex items-center gap-1 bg-[#0C111F]/40 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1.5 rounded-full">
+                        <Star size={12} className="text-[#FBB03B] fill-[#FBB03B]" />
+                        {tour.rating}
                       </div>
-                      <button className="px-5 py-2 rounded-full text-sm font-inter font-semibold border border-[#717171] text-[#717171] hover:scale-105 transition-transform">
-                        View More
-                      </button>
+                      {/* Duration badge */}
+                      <div className="absolute bottom-3 right-3 bg-white/18 backdrop-blur-sm text-white text-xs font-inter font-semibold px-3 py-1.5 rounded-full border border-white/30">
+                        {tour.duration}
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                    <div className="p-3">
+                      <h3 className="text-base sm:text-lg font-semibold text-black mb-2">{tour.title}</h3>
+                      <p className="text-[#7A7777] text-sm mb-4 font-inter font-medium">{tour.desc}</p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs text-[#0C111F]/60 font-inter font-medium">Price</p>
+                          <span className="text-[#0C111F] font-inter font-bold text-lg">$ {tour.price}</span>
+                        </div>
+                        <Link
+                          href={`/tour_info?id=${tour.id}`}
+                          className="px-5 py-2 rounded-full text-sm font-inter font-semibold border border-[#717171] text-[#717171] hover:scale-105 transition-transform"
+                        >
+                          View More
+                        </Link>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
             </div>
 
             {/* Explore More Button */}
@@ -601,9 +623,11 @@ export default function HomePage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="inline-flex items-center gap-2"
               >
-                <Button className="rounded-full px-8 py-3 text-base font-inter font-semibold">
-                  Explore More <ArrowRight size={14} className="ml-2" />
-                </Button>
+                <Link href="/tours">
+                  <Button className="rounded-full px-8 py-3 text-base font-inter font-semibold">
+                    Explore More <ArrowRight size={14} className="ml-2" />
+                  </Button>
+                </Link>
               </motion.div>
             </div>
           </div>
@@ -650,10 +674,10 @@ export default function HomePage() {
                   className="relative group cursor-pointer overflow-hidden rounded-2xl"
                 >
                   <div className="relative h-80 md:h-80 lg:h-[400px]">
-                    <img 
-                      src={adventure.image} 
-                      alt={adventure.title} 
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" 
+                    <img
+                      src={adventure.image}
+                      alt={adventure.title}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
                     <div className="absolute bottom-8 left-8 right-0">
@@ -661,7 +685,7 @@ export default function HomePage() {
                         {adventure.type}
                       </span>
                       <h3 className="mt-2 text-white text-lg font-inter font-semibold">{adventure.title}</h3>
-                      <a href="#" className="inline-flex items-center text-white text-sm font-inter font-regular hover:text-[#FBB03B] transition-colors mt-2">
+                      <a href="/adventure" className="inline-flex items-center text-white text-sm font-inter font-regular hover:text-[#FBB03B] transition-colors mt-2">
                         SEE MORE <ArrowRight size={14} className="ml-2" />
                       </a>
                     </div>
@@ -764,9 +788,9 @@ export default function HomePage() {
                 <ChevronRight size={20} />
               </button>
               <div className="overflow-hidden mx-12">
-                <div 
+                <div
                   className="flex gap-4 md:gap-6 lg:gap-10 transition-transform duration-500 ease-in-out"
-                  style={{ 
+                  style={{
                     transform: `translateX(-${testimonialIndex * (100 / getVisibleCards() + 2 / getVisibleCards())}%)`
                   }}
                 >
@@ -775,9 +799,9 @@ export default function HomePage() {
                       <div className="flex items-center gap-3 mb-4">
                         {t.profileImage ? (
                           <div className="h-12 w-12 rounded-full overflow-hidden">
-                            <img 
-                              src={t.profileImage} 
-                              alt={t.name} 
+                            <img
+                              src={t.profileImage}
+                              alt={t.name}
                               className="h-full w-full object-cover"
                             />
                           </div>
@@ -795,7 +819,7 @@ export default function HomePage() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <p className="text-sm text-[#7D7474]/85 font-inter font-regular">&ldquo;{t.text}&rdquo;</p>
                     </div>
                   ))}
@@ -817,7 +841,7 @@ export default function HomePage() {
                 priority
               />
             </div>
-        
+
             <div className="absolute inset-0 bg-black/30" />
             <div className="relative h-full flex items-center justify-center px-4 text-center">
               <motion.div
@@ -855,9 +879,9 @@ export default function HomePage() {
                         type="email"
                         placeholder="Enter your email"
                         className="w-full pl-12 pr-4 py-3 bg-transparent text-white placeholder-white caret-white"
-                        style={{ 
-                          outline: 'none', 
-                          border: 'none', 
+                        style={{
+                          outline: 'none',
+                          border: 'none',
                           boxShadow: 'none',
                           WebkitAppearance: 'none',
                           MozAppearance: 'none',
@@ -878,7 +902,7 @@ export default function HomePage() {
         </section>
 
       </main>
-        
+
       {/* Footer*/}
       <Footer />
     </div>

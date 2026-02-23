@@ -16,39 +16,6 @@ export const heroSlides = [
   }
 ];
 
-export const destinations = [
-  {
-    name: "Colombo",
-    image: "https://images.unsplash.com/photo-1561426802-392f5b6290cf?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "/destinations/colombo"
-  },
-  {
-    name: "Galle",
-    image: "https://images.unsplash.com/photo-1714412953594-ce00b0d43467?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "/destinations/galle"
-  },
-  {
-    name: "Anuradhapura",
-    image: "https://images.unsplash.com/photo-1709729508706-87741ec2d50a?q=80&w=1025&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "/destinations/anuradhapura"
-  },
-  {
-    name: "Adam’s Peak",
-    image: "https://images.unsplash.com/photo-1552055642-554ec085233a?q=80&w=1045&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "/destinations/adam-s-peak"
-  },
-  {
-    name: "Ella",
-    image: "https://images.unsplash.com/photo-1578519050142-afb511e518de?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "/destinations/ella"
-  },
-  {
-    name: "Bentota",
-    image: "https://images.unsplash.com/photo-1693307379048-890167f73704?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    link: "/destinations/bentota"
-  }
-];
-
 export const whyChooseUs = [
   {
     icon: "UserPen",
@@ -143,7 +110,6 @@ export const testimonials = [
 
 export const homeData = {
   heroSlides,
-  destinations,
   whyChooseUs,
   adventures,
   faqs,

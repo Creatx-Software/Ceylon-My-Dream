@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import {
   Facebook,
   Twitter,
@@ -13,14 +14,14 @@ import {
 import Image from 'next/image';
 
 const quickLinks = [
-  'Home',
-  'About Us',
-  'Tours',
-  'Destinations',
-  'Adventures',
-  'Gallery',
-  'Blog',
-  'Contact Us',
+  { label: 'Home', href: '/home' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Tours', href: '/tours' },
+  { label: 'Destinations', href: '/destinations' },
+  { label: 'Adventures', href: '/adventure' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact Us', href: '/contact' },
 ];
 
 const moreLinks = [
@@ -72,13 +73,10 @@ export function Footer() {
             <h3 className="text-lg font-inter font-medium mb-6">Quick Links</h3>
             <ul className="space-y-3 text-[#B0AEAE] font-inter font-regular text-sm">
               {quickLinks.map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="hover:text-[#F88E2D] transition-colors"
-                  >
-                    {item}
-                  </a>
+                <li key={item.label}>
+                  <Link href={item.href} className="hover:text-[#F88E2D] transition-colors">
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
