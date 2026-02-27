@@ -135,10 +135,10 @@ export default function ContactPage() {
         {/* ─── CONTACT FORM + INFO ─── */}
         <section className="py-12 bg-white overflow-hidden">
           <div className="container mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-16 items-center">
               {/* Form */}
               <motion.div
-                className="lg:col-span-2 relative rounded-[2rem] overflow-hidden min-h-[600px] flex items-center justify-center p-8"
+                className="lg:col-span-2 relative rounded-[2rem] overflow-hidden min-h-[560px] flex items-center justify-center p-6 md:p-8"
                 initial={{
                   opacity: 0,
                   x: -60,
@@ -162,28 +162,29 @@ export default function ContactPage() {
                   }}
                 />
 
-                <div className="absolute inset-0 bg-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/65 via-black/35 to-black/55" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(251,176,59,0.28),transparent_45%)]" />
 
-                <div className="relative w-full bg-transparent rounded-3xl p-2">
-                  <h3 className="text-3xl font-inter font-medium text-white mb-8">
+                <div className="relative w-full rounded-3xl p-5 md:p-6">
+                  <h3 className="text-2xl md:text-3xl font-inter font-semibold text-white mb-7 leading-tight">
                     {formTitle}
                   </h3>
-                  <form className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <form className="space-y-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <input
                         type="text"
                         placeholder={formFields.name}
-                        className="w-full bg-white/20 border border-white/50 rounded-full px-6 py-3 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                        className="w-full bg-white/40 backdrop-blur-md border border-white/40 rounded-full px-5 py-3 text-white placeholder-white/70 focus:outline-none focus:border-[#FBB03B]/40 transition-all"
                       />
 
                       <input
                         type="email"
                         placeholder={formFields.email}
-                        className="w-full bg-white/20 border border-white/50 rounded-full px-6 py-3 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
+                        className="w-full bg-white/40 backdrop-blur-md border border-white/40 rounded-full px-5 py-3 text-white placeholder-white/70 focus:outline-none focus:border-[#FBB03B]/40 transition-all"
                       />
                     </div>
                     <div className="relative">
-                      <select className="w-full bg-white/20 border border-white/50 rounded-full px-6 py-3 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-white/50 transition-all cursor-pointer">
+                      <select className="w-full bg-white/40 backdrop-blur-md border border-white/40 rounded-full px-5 py-3 text-white appearance-none focus:outline-none focus:border-[#FBB03B]/40 transition-all cursor-pointer">
                         <option className="text-gray-800">{formFields.subject}</option>
                         {formSubjects.map((subject, index) => (
                           <option key={index} className="text-gray-800">
@@ -191,17 +192,17 @@ export default function ContactPage() {
                           </option>
                         ))}
                       </select>
-                      <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-white pointer-events-none" />
+                      <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/85 pointer-events-none" />
                     </div>
                     <textarea
                       rows={5}
                       placeholder={formFields.message}
-                      className="w-full bg-white/20 border border-white/50 rounded-3xl px-6 py-4 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all resize-none"
+                      className="w-full bg-white/40 backdrop-blur-md border border-white/40 rounded-3xl px-5 py-4 text-white placeholder-white/70 focus:outline-none focus:border-[#FBB03B]/40 transition-all resize-none"
                     />
 
                     <button
                       type="button"
-                      className="w-full bg-white font-inter font-semibold text-[#FBB03B] font-bold py-4 rounded-full hover:bg-gray-50 transition-colors duration-300 shadow-lg mt-4"
+                      className="w-full bg-[#FBB03B] font-inter font-semibold text-white py-4 rounded-full hover:bg-[#FBB03B]/90 transition-colors duration-300 shadow-lg mt-2"
                     >
                       {formFields.submitButton}
                     </button>
@@ -211,7 +212,7 @@ export default function ContactPage() {
 
               {/* Info */}
               <motion.div
-                className="lg:col-span-1 space-y-8"
+                className="lg:col-span-2 space-y-8"
                 initial={{
                   opacity: 0,
                   x: 60,

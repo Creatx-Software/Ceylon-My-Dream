@@ -17,11 +17,25 @@ export default function GalleryPage() {
     );
 
     const [activeTab, setActiveTab] = React.useState<GalleryTab>('all');
+    const [selectedImage, setSelectedImage] = React.useState<(typeof galleryData)[number] | null>(null);
 
     const visibleImages = React.useMemo(() => {
         if (activeTab === 'all') return galleryData;
         return galleryData.filter((img) => img.category === activeTab);
     }, [activeTab]);
+
+    React.useEffect(() => {
+        if (!selectedImage) return;
+
+        const handleEscape = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setSelectedImage(null);
+            }
+        };
+
+        window.addEventListener('keydown', handleEscape);
+        return () => window.removeEventListener('keydown', handleEscape);
+    }, [selectedImage]);
 
     return (
         <div className="min-h-screen bg-white">
@@ -111,19 +125,53 @@ export default function GalleryPage() {
                                     transition={{ duration: 0.6, delay: index * 0.05 }}
                                     className="break-inside-avoid mb-4"
                                 >
-                                    <div className="relative overflow-hidden rounded-lg shadow-lg group">
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedImage(image)}
+                                        className="relative w-full overflow-hidden rounded-lg shadow-lg group cursor-pointer"
+                                        aria-label={`View ${image.alt}`}
+                                    >
                                         <img
                                             src={image.src}
                                             alt={image.alt}
                                             className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                                         />
                                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                                    </div>
+                                    </button>
                                 </motion.div>
                             ))}
                         </div>
                     </div>
                 </section>
+
+                {selectedImage && (
+                    <div
+                        className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
+                        onClick={() => setSelectedImage(null)}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Image preview"
+                    >
+                        <div
+                            className="relative w-full max-w-6xl"
+                            onClick={(event) => event.stopPropagation()}
+                        >
+                            <button
+                                type="button"
+                                onClick={() => setSelectedImage(null)}
+                                className="absolute -top-12 right-0 text-white text-sm font-inter font-semibold bg-white/15 hover:bg-white/25 rounded-full px-4 py-2 transition-colors"
+                                aria-label="Close image preview"
+                            >
+                                Close
+                            </button>
+                            <img
+                                src={selectedImage.src}
+                                alt={selectedImage.alt}
+                                className="w-full max-h-[85vh] object-contain rounded-xl shadow-2xl"
+                            />
+                        </div>
+                    </div>
+                )}
 
             </main>
 

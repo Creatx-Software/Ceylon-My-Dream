@@ -28,6 +28,7 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState("All");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [visibleTourCards, setVisibleTourCards] = useState(3);
   const featuredDestinations = destinationsData
     .slice(0, DESTINATION_CARD_COUNT)
     .map((destination) => ({
@@ -37,12 +38,22 @@ export default function HomePage() {
     }));
   const tourCategories = ["All", ...Array.from(new Set(tourData.tours.map((tour) => tour.category)))] as const;
   const filteredTours = tourData.tours.filter((tour) => activeTab === "All" || tour.category === activeTab);
-  const getVisibleTourCards = () => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth >= 768 && window.innerWidth < 1024) return 4;
-    }
-    return 3;
-  };
+  useEffect(() => {
+    const updateVisibleTourCards = () => {
+      if (window.innerWidth >= 768) {
+        setVisibleTourCards(4);
+        return;
+      }
+      setVisibleTourCards(3);
+    };
+
+    updateVisibleTourCards();
+    window.addEventListener('resize', updateVisibleTourCards);
+
+    return () => {
+      window.removeEventListener('resize', updateVisibleTourCards);
+    };
+  }, []);
 
   const goNext = useCallback(() => setHeroIndex((i) => (i + 1) % homeData.heroSlides.length), []);
   const goPrev = useCallback(() => setHeroIndex((i) => (i - 1 + homeData.heroSlides.length) % homeData.heroSlides.length), []);
@@ -276,7 +287,7 @@ export default function HomePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 1.1 }}
-                    className="px-8 py-3 bg-[#FBB03B] text-white font-inter font-semibold rounded-full hover:bg-[#FBB03B]/90 transition-colors"
+                    className="px-8 py-3 border-2 border-[#FBB03B] bg-[#FBB03B] text-white font-inter font-semibold rounded-full hover:bg-[#FBB03B]/90 transition-colors"
                   >
                     Explore Our Tours
                   </motion.button>
@@ -365,7 +376,7 @@ export default function HomePage() {
         </section>
 
         {/* Visit Destinations */}
-        <section className="py-16 md:py-20 -mt-10">
+        <section className="pt-16 md:pt-20 pb-20 md:pb-24 -mt-10">
           <div className="container mx-auto">
             {/* Top Section - Text and Button */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-12">
@@ -575,9 +586,9 @@ export default function HomePage() {
             </motion.div>
 
             {/* Tour Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
               {filteredTours
-                .slice(0, getVisibleTourCards())
+                .slice(0, visibleTourCards)
                 .map((tour, i) => (
                   <motion.div
                     key={tour.id}
@@ -702,59 +713,90 @@ export default function HomePage() {
         </section>
 
         {/*  FAQ */}
-        <section className="py-16 lg:py-20 -mt-10">
+        <section className="py-16 lg:py-20 -mt-6 bg-white">
           <div className="container mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, ease: 'easeOut' }}
-              className="grid lg:grid-cols-2 gap-10 items-start"
+              className="relative overflow-hidden rounded-[2rem] border border-[#7D7474]/20 px-6 py-8 md:px-10 md:py-12"
             >
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.7, ease: 'easeOut' }}
-                className="animate-on-scroll-left lg:max-w-lg"
-              >
-                <p className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B] mb-2">FAQ</p>
-                <h2 className="mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl mb-5">
-                  Frequently Asked Questions
-                </h2>
-                <p className="text-sm md:text-md text-[#7A7777] font-inter font-regular mt-6">
-                  Click on any of the questions below to find answers that guide you through the booking process.
-                </p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.7, ease: 'easeOut' }}
-                className="space-y-3 animate-on-scroll-right"
-              >
-                {homeData.faqs.map((q, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full text-left p-4 rounded-xl bg-white border border-[#7D7474]/85 transition-colors"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-md font-inter font-medium text-[#1E1E1E]">{q.question}</span>
-                    </div>
-                    {openFaq === i && (
-                      <p className="mt-3 text-sm text-[#717171] font-inter font-regular">
-                        {homeData.faqs[i].answer}
-                      </p>
-                    )}
-                  </button>
-                ))}
-              </motion.div>
+              <div className="pointer-events-none absolute inset-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="FAQ background"
+                  fill
+                  className="object-cover opacity-100"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/5 to-transparent" />
+              </div>
+              <div className="pointer-events-none absolute -left-20 -top-24 h-64 w-64 rounded-full bg-[#FBB03B]/15 blur-3xl" />
+              <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[#4B485B]/10 blur-3xl" />
+
+              <div className="relative grid lg:grid-cols-2 gap-10 items-start">
+                <motion.div
+                  initial={{ opacity: 0, x: -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.7, ease: 'easeOut' }}
+                  className="animate-on-scroll-left lg:max-w-lg"
+                >
+                  <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]">FAQ</span>
+                  <h2 className="mt-6 font-inter text-3xl font-semibold leading-tight text-[#4B485B] md:text-5xl">
+                    Frequently Asked Questions
+                  </h2>
+                  <p className="mt-6 max-w-md text-sm md:text-base text-[##4C4646] font-inter font-regular leading-relaxed">
+                    Everything you need before your journey begins—clear answers, simple booking guidance, and a smoother travel planning experience.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.7, ease: 'easeOut' }}
+                  className="space-y-4 animate-on-scroll-right"
+                >
+                  {homeData.faqs.map((q, i) => {
+                    const isOpen = openFaq === i;
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => setOpenFaq(isOpen ? null : i)}
+                        aria-expanded={isOpen}
+                        className={`w-full text-left rounded-2xl border p-5 transition-all duration-300 ${
+                          isOpen
+                            ? 'bg-white shadow-lg border-[#FBB03B]/40'
+                            : 'bg-white/75 backdrop-blur-sm border-[#7D7474]/20 hover:bg-white hover:shadow-md'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <span className="text-base md:text-lg font-inter font-medium text-[#1E1E1E] leading-snug">{q.question}</span>
+                          <span className={`mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-sm transition-all duration-300 ${
+                            isOpen
+                              ? 'border-[#FBB03B]/40 bg-[#FBB03B]/20 text-[#4B485B]'
+                              : 'border-[#7D7474]/30 bg-white text-[#7D7474]'
+                          }`}>
+                            {isOpen ? '−' : '+'}
+                          </span>
+                        </div>
+
+                        <div className={`grid transition-all duration-300 ease-out ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0 mt-0'}`}>
+                          <p className="overflow-hidden text-sm md:text-base text-[#717171] font-inter font-regular leading-relaxed">
+                            {q.answer}
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Why Choose Us */}
+        {/* Testimonials */}
         <section className="py-16 md:py-20 -mt-10">
           <div className="container mx-auto">
             <div className="animate-on-scroll mb-12 text-center">
@@ -792,7 +834,7 @@ export default function HomePage() {
               >
                 <ChevronRight size={20} />
               </button>
-              <div className="overflow-hidden mx-12">
+              <div className="overflow-x-hidden overflow-y-visible mx-12 pb-4">
                 <div
                   className="flex gap-4 md:gap-6 lg:gap-10 transition-transform duration-500 ease-in-out"
                   style={{
