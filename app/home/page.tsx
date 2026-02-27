@@ -268,50 +268,6 @@ export default function HomePage() {
                 With over six years of experience and a multilingual team, we craft tailor-made journeys for solo travelers, couples, and families. Go beyond the usual paths with Ceylon My Dream, where every trip becomes a story to cherish.
               </motion.p>
 
-              {/* 2x2 Cards Grid */}
-              <div className="mt-10 grid grid-cols-2 gap-4 max-w-lg">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                  className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <span className="text-3xl font-inter font-semibold text-black">07</span>
-                  <span className="text-sm text-[#625F5F] font-inter font-medium">Years of Expertise</span>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.8 }}
-                  className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <span className="text-3xl font-inter font-semibold text-black">13+</span>
-                  <span className="text-sm text-[#625F5F] font-inter font-medium">Destinations</span>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.9 }}
-                  className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <span className="text-3xl font-inter font-semibold text-black">10K</span>
-                  <span className="text-sm text-[#625F5F] font-inter font-medium">International Guests</span>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 1.0 }}
-                  className="flex flex-col items-center justify-center p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <span className="text-3xl font-inter font-semibold text-black">24/7</span>
-                  <span className="text-sm text-[#625F5F] font-inter font-medium">Support</span>
-                </motion.div>
-              </div>
-
               {/* Two Buttons */}
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
                 <Link href="/tours">
@@ -353,10 +309,59 @@ export default function HomePage() {
                 alt="About Us - Ceylon My Dream"
                 width={400}
                 height={250}
-                className="w-full h-auto max-w-xl mx-auto"
+                className="w-full h-auto max-w-md mx-auto"
               />
             </motion.div>
           </div>
+        </section>
+
+        {/* Stats Strip */}
+        <section className="py-10 md:py-14 -mt-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="container mx-auto relative overflow-hidden rounded-[2rem] items-center"
+          >
+            <div className="relative min-h-[300px] md:min-h-[240px]">
+              <Image
+                src="https://images.unsplash.com/photo-1619537903549-0981d6bca911?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="travel experience"
+                fill
+                className="object-cover rounded-[2rem]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60 rounded-[2rem]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,176,59,0.35),transparent_45%)] rounded-[2rem]" />
+
+              <div className="relative z-10 h-full px-6 py-10 md:px-10 md:py-12 lg:px-14">
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: 0.25 }}
+                  className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10"
+                >
+                  {[
+                    { value: '07', label: 'Years of Expertise' },
+                    { value: '13+', label: 'Destinations' },
+                    { value: '10K', label: 'International Guests' },
+                    { value: '24/7', label: 'Support' },
+                  ].map((item) => (
+                    <div key={item.label} className="relative text-center">
+                      <p className="text-4xl md:text-5xl lg:text-6xl font-inter font-semibold leading-none tracking-tight text-white">
+                        {item.value}
+                      </p>
+                      <p className="mt-2 text-[11px] md:text-xs uppercase tracking-[0.16em] text-white/75 font-inter font-medium">
+                        {item.label}
+                      </p>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
         </section>
 
         {/* Visit Destinations */}
@@ -418,7 +423,7 @@ export default function HomePage() {
             </div>
 
             {/* Bottom Section - Destination Cards (Full Width) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 md:auto-rows-[250px] gap-6">
               {featuredDestinations.map((destination, index) => (
                 <motion.div
                   key={index}
@@ -429,13 +434,13 @@ export default function HomePage() {
                   className={`relative group cursor-pointer overflow-hidden rounded-3xl ${index === 0
                     ? 'md:row-span-2'
                     : index === 4
-                      ? 'md:row-span-2 md:col-start-2'
+                      ? 'md:row-span-2 md:col-start-4 md:row-start-1'
                       : ''
                     }`}
                 >
                   <div className={`relative ${index === 0 || index === 4
                     ? 'h-96 md:h-full'
-                    : 'h-48 md:h-48'
+                    : 'h-64 md:h-full'
                     }`}>
                     <img
                       src={destination.image}
@@ -580,9 +585,9 @@ export default function HomePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
-                    className="rounded-2xl overflow-hidden bg-white group shadow-sm animate-on-scroll"
+                    className="rounded-2xl overflow-hidden bg-white group shadow-sm drop-shadow-md animate-on-scroll"
                   >
-                    <div className="relative h-56 sm:h-60 overflow-hidden">
+                    <div className="relative h-56 sm:h-60 overflow-hidden p-2">
                       <img src={tour.img} alt={tour.title} className="h-full w-full object-cover transition-transform duration-500 rounded-2xl" />
                       {/* Rating badge */}
                       <div className="absolute top-3 left-3 flex items-center gap-1 bg-[#0C111F]/40 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1.5 rounded-full">
