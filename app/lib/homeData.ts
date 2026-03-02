@@ -18,10 +18,6 @@ export const heroSlides = [
 
 export const whyChooseUs = [
   {
-    icon: "UserPen",
-    title: "Customized, tailor-made Sri Lanka tour packages",
-  },
-  {
     icon: "HeartHandshake",
     title: "Has partnered with carefully selected suppliers",
   },

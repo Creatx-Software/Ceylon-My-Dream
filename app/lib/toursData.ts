@@ -187,7 +187,7 @@ const baseToursData: Tour[] = [
     duration: "8 Days / 7 Nights",
     desc: "Explore the rich ancient history of Sri Lanka, designed for the visitors interested in antiquities",
     price: 1020.00,
-    pricePerNight: "$145",
+    pricePerNight: "145",
     category: "Heritage",
     overview: [
       "Journey through Sri Lanka's UNESCO World Heritage Sites and discover the island's rich cultural tapestry. This comprehensive tour takes you through ancient cities, colonial architecture, and timeless traditions.",
@@ -280,7 +280,7 @@ const baseToursData: Tour[] = [
     duration: "5 Days / 4 Nights",
     desc: "Perfect getaway for visitors who want to experience the cool breezy hill country of Sri Lanka",
     price: 370.00,
-    pricePerNight: "$74",
+    pricePerNight: "74",
     category: "Hill",
     overview: [
       "Escape to the cool, misty highlands of Sri Lanka where emerald tea plantations stretch endlessly across rolling hills. This tour offers a refreshing retreat from the tropical heat.",
@@ -358,7 +358,7 @@ const baseToursData: Tour[] = [
     duration: "5 Days / 4 Nights",
     desc: "The 6 day East Coast tour package offers you the perfect blend of beach and the cultural experience.",
     price: 370.00,
-    pricePerNight: "$74",
+    pricePerNight: "74",
     category: "Beach",
     overview: [
       "Discover the unspoiled beauty of Sri Lanka's East Coast, where pristine beaches meet rich cultural heritage. This region offers a more tranquil alternative to the busy west coast.",
@@ -436,7 +436,7 @@ const baseToursData: Tour[] = [
     duration: "5 Days / 4 Nights",
     desc: "Perfect getaway for visitors who want to experience the cool breezy hill country of Sri Lanka",
     price: 370.00,
-    pricePerNight: "$74",
+    pricePerNight: "74",
     category: "Heritage",
     overview: [
       "Immerse yourself in the dynamic energy of Colombo, Sri Lanka's bustling commercial capital. This urban adventure combines modern city life with colonial heritage and local culture.",
@@ -514,7 +514,7 @@ const baseToursData: Tour[] = [
     duration: "5 Days / 4 Nights",
     desc: "The 6-day fascination hill country tour package offers you the most scenic experience of the magical island.",
     price: 370.00,
-    pricePerNight: "$74",
+    pricePerNight: "74",
     category: "Hill",
     overview: [
       "Experience the breathtaking wonders of Sri Lanka's central highlands on this comprehensive hill country adventure. From misty mountains to cascading waterfalls, every moment is picture-perfect.",
@@ -592,7 +592,7 @@ const baseToursData: Tour[] = [
     duration: "5 Days / 4 Nights",
     desc: "The 6-day Ancient Ceylon tour package offers you the best days of your life inside the ancient kingdoms in Sri Lanka.",
     price: 370.00,
-    pricePerNight: "$74",
+    pricePerNight: "74",
     category: "Beach",
     overview: [
       "Celebrate your love with an unforgettable romantic escape in paradise. This specially curated honeymoon package combines luxury, romance, and adventure in stunning locations.",
@@ -670,7 +670,7 @@ const baseToursData: Tour[] = [
     duration: "6 Days / 5 Nights",
     desc: "The 6-day Ancient Ceylon tour package offers you the best days of your life inside the ancient kingdoms in Sri Lanka.",
     price: 149.00,
-    pricePerNight: "$30",
+    pricePerNight: "30",
     category: "Ancient",
     overview: [
       "Step back in time and explore the magnificent ancient kingdoms of Sri Lanka. This archaeological adventure takes you through centuries of history, from sacred Buddhist sites to impressive fortresses.",
@@ -753,7 +753,7 @@ const baseToursData: Tour[] = [
     duration: "5 Days / 4 Nights",
     desc: "Perfect getaway for visitors who want to experience the cool breezy hill country of Sri Lanka",
     price: 370.00,
-    pricePerNight: "$74",
+    pricePerNight: "74",
     category: "Wildlife",
     overview: [
       "Embark on an unforgettable wildlife adventure through Sri Lanka's pristine national parks and nature reserves. Encounter elephants, leopards, sloth bears, and hundreds of bird species in their natural habitat.",
@@ -831,7 +831,7 @@ const baseToursData: Tour[] = [
     duration: "5 Days / 4 Nights",
     desc: "This package give you the perfect stays for your holiday. Starting the tour with the exclusive experience in Negombo in the western coastline.",
     price: 370.00,
-    pricePerNight: "$74",
+    pricePerNight: "74",
     category: "Heritage",
     overview: [
       "Experience the complete serendipity of Sri Lanka with this comprehensive tour that showcases everything the island has to offer—from pristine beaches to ancient temples, from wildlife safaris to tea plantations.",

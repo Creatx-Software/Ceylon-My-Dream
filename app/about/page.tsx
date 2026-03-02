@@ -51,7 +51,7 @@ export default function AboutUsPage() {
                   <br />
                   <span className="block mt-2">OUR PASSION</span>
                 </h1>
-                <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-xl">
+                <p className="animate-on-scroll mx-auto mt-4 max-w-4xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-2xl">
                   Discover the inspiring story behind Ceylon My Dream, a place where travel dreams come true, unforgettable journeys begin, and every destination holds a new adventure waiting
                 </p>
               </motion.div>
@@ -73,7 +73,7 @@ export default function AboutUsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B] inline-block"
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220] inline-block"
               >
                 Get To Know About Us
               </motion.span>
@@ -223,7 +223,7 @@ export default function AboutUsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]"
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220]"
               >
                 Why We Stand Out
               </motion.span>
@@ -264,7 +264,7 @@ export default function AboutUsPage() {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="text-black leading-relaxed font-inter font-regular text-justify between"
                 >
-                  At Ceylon My Dream, travelers discover more than just a destination â€” they uncover the true essence of Sri Lanka. As a trusted Sri Lanka travel agency, we open doors to unforgettable memories, authentic encounters, and meaningful moments that stay with you long after the journey ends.
+                  At Ceylon My Dream, travelers discover more than just a destination, they uncover the true essence of Sri Lanka. As a trusted Sri Lanka travel agency, we open doors to unforgettable memories, authentic encounters, and meaningful moments that stay with you long after the journey ends.
                 </motion.p>
                 
                 <motion.div 
@@ -314,7 +314,7 @@ export default function AboutUsPage() {
           <div className="container mx-auto">
             <div className="mb-12 grid gap-16 lg:grid-cols-2">
               <div className="animate-on-scroll-left">
-                <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]">Our Team</span>
+                <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220]">Our Team</span>
                 <h2 className="mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl">
                   Meet the Experts Behind Your Adventure
                 </h2>
@@ -352,7 +352,7 @@ export default function AboutUsPage() {
                         </div>
                       </div>
                       <div className="p-6 bg-[#faead2]">
-                        <h3 className="text-xl font-semibold text-[#FBB03B] font-inter">{member.name}</h3>
+                        <h3 className="text-xl font-semibold text-[#F58220] font-inter">{member.name}</h3>
                         <p className="text-[#423939] font-inter font-regular mt-1">{member.role}</p>
                       </div>
                     </div>
@@ -382,7 +382,7 @@ export default function AboutUsPage() {
                           </div>
                         </div>
                         <div className="p-4 bg-[#faead2]">
-                          <h3 className="text-lg font-semibold text-[#FBB03B] font-inter">{member.name}</h3>
+                          <h3 className="text-lg font-semibold text-[#F58220] font-inter">{member.name}</h3>
                           <p className="text-[#423939] font-inter font-regular text-sm mt-1">{member.role}</p>
                         </div>
                       </div>

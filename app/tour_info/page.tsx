@@ -149,7 +149,7 @@ function TourInfoContent() {
                 {tour.galleryImages.length > 1 && (
                   <button
                     onClick={prevGallery}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white text-[#FBB03B] shadow-lg hover:bg-white/90 transition-colors"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white text-[#F58220] shadow-lg hover:bg-white/90 transition-colors"
                     aria-label="Previous image"
                   >
                     <ChevronLeft size={18} />
@@ -202,7 +202,7 @@ function TourInfoContent() {
                 {tour.galleryImages.length > 1 && (
                   <button
                     onClick={nextGallery}
-                    className="absolute -right-20 md:-right-24 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white text-[#FBB03B] shadow-lg hover:bg-white/90 transition-colors"
+                    className="absolute -right-20 md:-right-24 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white text-[#F58220] shadow-lg hover:bg-white/90 transition-colors"
                     aria-label="Next image"
                   >
                     <ChevronRight size={18} />
@@ -331,7 +331,7 @@ function TourInfoContent() {
             >
               {/* Vertical timeline line */}
               <div 
-                className="absolute left-1/2 top-0 w-0.5 bg-[#FBB03B]" 
+                className="absolute left-1/2 top-0 w-0.5 bg-[#F58220]" 
                 style={{ 
                   height: `${((tour.itinerary.length + 0) / tour.itinerary.length) * 100}%` 
                 }} 
@@ -352,7 +352,7 @@ function TourInfoContent() {
                     >
                       {/* Timeline dot */}
                       <div className="flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-                        <div className="h-5 w-5 rounded-full bg-[#FBB03B] shadow-lg shadow-[#FBB03B]/40" />
+                        <div className="h-5 w-5 rounded-full bg-[#F58220] shadow-lg shadow-[#F58220]/40" />
                       </div>
 
                       <div className={`flex items-center ${isLeft ? "flex-row" : "flex-row-reverse"}`}>
@@ -383,7 +383,7 @@ function TourInfoContent() {
                           
                           {/* Day label */}
                           <div className={`-mt-16 ${isLeft ? "text-left order-2" : "text-left order-1"}`}>
-                            <span className="text-[#FBB03B] text-xs sm:text-sm font-inter font-regular uppercase tracking-widest block">
+                            <span className="text-[#F58220] text-xs sm:text-sm font-inter font-regular uppercase tracking-widest block">
                               DAY {day.day}
                             </span>
                             <span className="text-md lg:text-lg font-inter font-semibold text-[#423939]">

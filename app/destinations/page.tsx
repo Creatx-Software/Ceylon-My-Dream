@@ -73,7 +73,7 @@ export default function DestinationsPage() {
                                 <h1 className="text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
                                     DESTINATIONS
                                 </h1>
-                                <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-xl">
+                                <p className="animate-on-scroll mx-auto mt-4 max-w-4xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-2xl">
                                     Your island escape, perfectly scripted. From heritage ruins to wild horizons, let us guide you through the heart of Sri Lanka.
                                 </p>
                             </motion.div>
@@ -115,7 +115,7 @@ export default function DestinationsPage() {
                                             transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                                             onClick={() => setActiveTab(tab)}
                                             className={`mt-5 px-6 py-2 rounded-full text-sm font-inter font-semibold transition-colors border ${activeTab === tab
-                                                ? "bg-[#FBB03B] text-white border-[#FBB03B]"
+                                                ? "bg-[#F58220] text-white border-[#F58220]"
                                                 : "bg-transparent text-[#717171] border-border hover:border-[#717171] hover:text-primary"
                                                 }`}
                                         >
@@ -141,7 +141,7 @@ export default function DestinationsPage() {
                                         placeholder="Search destinations..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-3 bg-white border border-[#7D7474]/30 rounded-lg text-[#4B485B] placeholder-[#7D7474]/60 focus:outline-none focus:ring-2 focus:ring-[#FBB03B] focus:border-transparent transition-all"
+                                        className="w-full pl-10 pr-4 py-3 bg-white border border-[#7D7474]/30 rounded-lg text-[#4B485B] placeholder-[#7D7474]/60 focus:outline-none focus:ring-2 focus:ring-[#F58220] focus:border-transparent transition-all"
                                     />
                                 </motion.div>
 
@@ -153,8 +153,8 @@ export default function DestinationsPage() {
                                     transition={{ duration: 0.6, delay: 0.3 }}
                                     onClick={() => setViewMode('grid')}
                                     className={`flex-1 flex items-center justify-center gap-2 lg:gap-6 px-4 py-3 rounded-lg font-inter font-semibold transition-all ${viewMode === 'grid'
-                                      ? 'bg-[#FBB03B] text-white border border-[#FBB03B]'
-                                      : 'bg-white text-[#4B485B] border border-[#7D7474]/30 hover:bg-[#FBB03B] hover:text-white hover:border-[#FBB03B]'
+                                      ? 'bg-[#F58220] text-white border border-[#F58220]'
+                                      : 'bg-white text-[#4B485B] border border-[#7D7474]/30 hover:bg-[#F58220] hover:text-white hover:border-[#F58220]'
                                       }`}
                                   >
                                     <LayoutGrid size={20} />
@@ -168,8 +168,8 @@ export default function DestinationsPage() {
                                     transition={{ duration: 0.6, delay: 0.4 }}
                                     onClick={() => setViewMode('list')}
                                     className={`flex-1 flex items-center justify-center gap-2 lg:gap-6 px-4 py-3 rounded-lg font-inter font-semibold transition-all ${viewMode === 'list'
-                                      ? 'bg-[#FBB03B] text-white border border-[#FBB03B]'
-                                      : 'bg-white text-[#4B485B] border border-[#7D7474]/30 hover:bg-[#FBB03B] hover:text-white hover:border-[#FBB03B]'
+                                      ? 'bg-[#F58220] text-white border border-[#F58220]'
+                                      : 'bg-white text-[#4B485B] border border-[#7D7474]/30 hover:bg-[#F58220] hover:text-white hover:border-[#F58220]'
                                       }`}
                                   >
                                     <List size={20} />

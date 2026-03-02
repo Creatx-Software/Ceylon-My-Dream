@@ -31,8 +31,8 @@ export const Button: React.FC<ButtonProps> = ({
   };
   
   const variantClasses = {
-    primary: 'bg-white text-[#FBB03B] focus:ring-[#FBB03B] shadow-lg hover:scale-105',
-    secondary: 'bg-transparent text-[#FBB03B] border-2 border-[#FBB03B] hover:text-white focus:ring-[#FBB03B]'
+    primary: 'bg-white text-[#F58220] focus:ring-[#F58220] shadow-lg hover:scale-105',
+    secondary: 'bg-transparent text-[#F58220] border-2 border-[#F58220] hover:text-white focus:ring-[#F58220]'
   };
 
   const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;

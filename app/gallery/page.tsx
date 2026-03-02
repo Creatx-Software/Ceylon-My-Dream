@@ -73,7 +73,7 @@ export default function GalleryPage() {
                                 <h1 className="text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
                                     GALLERY
                                 </h1>
-                                <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-xl">
+                                <p className="mt-4 animate-on-scroll mx-auto max-w-4xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-2xl">
                                     The Path Less Traveled. Frame the unseen. From secret waterfalls to quiet village dawns, witness Sri Lanka through a different lens.
                                 </p>
                             </motion.div>
@@ -101,7 +101,7 @@ export default function GalleryPage() {
                                     onClick={() => setActiveTab(tab.key)}
                                     className={`px-6 py-2 rounded-full text-sm font-inter font-semibold transition-colors border ${
                                         activeTab === tab.key
-                                            ? 'bg-[#FBB03B] text-white border-[#FBB03B]'
+                                            ? 'bg-[#F58220] text-white border-[#F58220]'
                                             : 'bg-transparent text-[#717171] border-border hover:border-[#717171] hover:text-primary'
                                     }`}
                                 >

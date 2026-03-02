@@ -56,7 +56,7 @@ export default function BlogPage() {
                                 <h1 className="text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
                                     TRAVEL BLOG
                                 </h1>
-                                <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-xl">
+                                <p className="mt-4 animate-on-scroll mx-auto max-w-4xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-2xl">
                                     Collect moments, not things. Explore the hidden corners of the world, one story at a time.
                                 </p>
                             </motion.div>
@@ -84,7 +84,7 @@ export default function BlogPage() {
                                         placeholder="Search blog..."
                                         value={searchTerm}
                                         onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-3 bg-white border border-[#7D7474]/30 rounded-lg text-[#4B485B] placeholder-[#7D7474]/60 focus:outline-none focus:ring-2 focus:ring-[#FBB03B] focus:border-transparent transition-all"
+                                        className="w-full pl-10 pr-4 py-3 bg-white border border-[#7D7474]/30 rounded-lg text-[#4B485B] placeholder-[#7D7474]/60 focus:outline-none focus:ring-2 focus:ring-[#F58220] focus:border-transparent transition-all"
                                     />
                                 </motion.div>
 
@@ -108,8 +108,8 @@ export default function BlogPage() {
                                                 onClick={() => setActiveTag((current) => (current === tag.name ? '' : tag.name))}
                                                 className={`px-3 py-1 border rounded-md text-md font-inter font-medium transition-colors ${
                                                     activeTag === tag.name
-                                                        ? 'bg-[#FBB03B] border-[#FBB03B] text-white'
-                                                        : 'bg-white text-[#423939] border-[#D9D9D9] hover:bg-[#FBB03B] hover:border-[#FBB03B] hover:text-white'
+                                                        ? 'bg-[#F58220] border-[#F58220] text-white'
+                                                        : 'bg-white text-[#423939] border-[#D9D9D9] hover:bg-[#F58220] hover:border-[#F58220] hover:text-white'
                                                 }`}
                                             >
                                                 {tag.name}
@@ -144,7 +144,7 @@ export default function BlogPage() {
                                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                                     />
                                                 </div>
-                                                <h4 className="font-inter text-md font-semibold text-[#423939] line-clamp-2 group-hover:text-[#FBB03B] transition-colors mb-1">
+                                                <h4 className="font-inter text-md font-semibold text-[#423939] line-clamp-2 group-hover:text-[#F58220] transition-colors mb-1">
                                                     {post.title}
                                                 </h4>
                                                 <p className="text-sm text-[#7A7777] font-inter font-regular">{post.dateLabel}</p>
@@ -182,7 +182,7 @@ export default function BlogPage() {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                     </div>
-                                    <h3 className="font-inter text-lg font-semibold text-[#423939] mb-2 group-hover:text-[#FBB03B] transition-colors">{featuredArticle.title}</h3>
+                                    <h3 className="font-inter text-lg font-semibold text-[#423939] mb-2 group-hover:text-[#F58220] transition-colors">{featuredArticle.title}</h3>
                                     <div className="flex items-center gap-3 mb-3">
                                         <div className="w-10 h-10 rounded-full overflow-hidden">
                                             <img
@@ -219,7 +219,7 @@ export default function BlogPage() {
                                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                                 />
                                             </div>
-                                            <h4 className="font-inter text-md font-semibold text-[#423939] line-clamp-2 group-hover:text-[#FBB03B] transition-colors">
+                                            <h4 className="font-inter text-md font-semibold text-[#423939] line-clamp-2 group-hover:text-[#F58220] transition-colors">
                                                 {article.title}
                                             </h4>
                                             <p className="text-sm text-[#7A7777] font-inter font-regular mt-1">{article.dateLabel}</p>

@@ -40,9 +40,9 @@ export function Navbar() {
       style={scrolled && !isMenuOpen ? { backgroundColor: 'rgba(30, 30, 30, 0.95)' } : {}}
     >
       {/* Desktop Navigation */}
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12 mt-2">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2 ml-8">
+          <div className="flex items-center space-x-2 ml-10 mt-2">
             <Image 
               src="/logos/CMD logo.png" 
               alt="Ceylon My Dream Logo" 

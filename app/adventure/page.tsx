@@ -74,7 +74,7 @@ export default function AdventurePage() {
                                 <h1 className="text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
                                     ADVENTURE
                                 </h1>
-                                <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-xl">
+                                <p className="animate-on-scroll mx-auto mt-4 max-w-4xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-2xl">
                                     Chase the thrill. From untamed jungles to crashing surf, conquer the raw beauty of Sri Lanka.
                                 </p>
                             </motion.div>

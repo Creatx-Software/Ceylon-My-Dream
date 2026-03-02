@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Calendar as CalendarIcon, Users, ArrowRight, UserPen, HeartHandshake, Star, ChartNoAxesCombined, Languages } from 'lucide-react';
+import { ChevronDown, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Users, ArrowRight, UserPen, HeartHandshake, Star, ChartNoAxesCombined, Languages } from 'lucide-react';
 import { useState, useEffect, useCallback } from "react";
 import { homeData } from '../lib/homeData';
 import { destinationsData } from '../lib/destinationsData';
@@ -14,8 +14,7 @@ import { tourData } from '../lib/toursData';
 import { Button } from '../components/ui/ButtonMain';
 import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popover';
 import { format } from 'date-fns';
-import { cn } from '../lib/utils';
-import { Calendar } from '../components/ui/Calendar';
+import ReactCalendar from 'react-calendar';
 import { Button as Button2 } from '../components/ui/Button';
 import { Mail } from 'lucide-react';
 
@@ -84,20 +83,6 @@ export default function HomePage() {
     const timer = setInterval(goNext, 5000);
     return () => clearInterval(timer);
   }, [goNext]);
-
-
-  const handleCheckInSelect = (date: Date | Date[] | undefined) => {
-    if (date instanceof Date) {
-      setCheckIn(date);
-    }
-  };
-
-  const handleCheckOutSelect = (date: Date | Date[] | undefined) => {
-    if (date instanceof Date) {
-      setCheckOut(date);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white">
       {/* Navbar */}
@@ -140,29 +125,37 @@ export default function HomePage() {
             </div>
 
             <div className="absolute inset-0 bg-black/40" />
+            {/* Title and subtitle */}
             <div className="relative h-full flex items-center justify-center px-4 text-center">
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  y: 40,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                transition={{
-                  duration: 0.8,
-                  ease: 'easeOut',
-                }}
-                className="max-w-4xl mx-auto"
-              >
-                <h1 className="-mt-36 md:-mt-20 lg:mt-10 text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
-                  {homeData.heroSlides[heroIndex].title}
-                </h1>
-                <p className="mt-8 animate-on-scroll mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-xl">
-                  {homeData.heroSlides[heroIndex].description}
-                </p>
-              </motion.div>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={heroIndex}
+                  initial={{
+                    opacity: 0,
+                    y: 14,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -10,
+                  }}
+                  transition={{
+                    duration: 0.55,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="max-w-4xl mx-auto"
+                >
+                  <h1 className="-mt-36 md:-mt-20 lg:mt-10 text-5xl md:text-8xl text-white tracking-tight drop-shadow-lg" style={{ fontFamily: "'Abhaya Libre', serif", fontWeight: 800 }}>
+                    {homeData.heroSlides[heroIndex].title}
+                  </h1>
+                  <p className="mt-4 animate-on-scroll mx-auto max-w-3xl text-sm leading-relaxed text-white font-inter font-medium sm:text-base md:text-2xl md:max-w-xl lg:max-w-4xl" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>
+                    {homeData.heroSlides[heroIndex].description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
 
               {/* Search Bar - Independent from slides */}
               <motion.div
@@ -183,7 +176,15 @@ export default function HomePage() {
                       </button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 z-50 bg-transparent border-none shadow-none" align="start">
-                      <Calendar mode="single" selected={checkIn} onSelect={handleCheckInSelect} initialFocus className={cn("pointer-events-auto")} />
+                      <ReactCalendar
+                        onChange={(value) => {
+                          if (value instanceof Date) {
+                            setCheckIn(value);
+                          }
+                        }}
+                        value={checkIn ?? null}
+                        className="custom-calendar"
+                      />
                     </PopoverContent>
                   </Popover>
 
@@ -199,26 +200,50 @@ export default function HomePage() {
                       </button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 z-50 bg-transparent border-none shadow-none" align="start">
-                      <Calendar mode="single" selected={checkOut} onSelect={handleCheckOutSelect} initialFocus className={cn("pointer-events-auto")} />
+                      <ReactCalendar
+                        onChange={(value) => {
+                          if (value instanceof Date) {
+                            setCheckOut(value);
+                          }
+                        }}
+                        value={checkOut ?? null}
+                        className="custom-calendar"
+                      />
                     </PopoverContent>
                   </Popover>
 
                   <div className="hidden sm:block w-px h-8 bg-border" />
 
                   {/* Pax */}
-                  <div className="flex items-center gap-2 px-4 py-3">
-                    <Users size={20} className="text-[#7D7474] shrink-0" />
-                    <span className="text-sm text-[#7D7474] font-inter font-medium">Pax</span>
-                    <div className="flex flex-col ml-1">
-                      <button onClick={() => setPax((p) => p + 1)} className="text-[#7D7474] hover:text-primary transition-colors" aria-label="Increase pax">
-                        <ChevronUp size={14} />
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button className="flex items-center gap-2 px-4 py-3 text-left hover:bg-muted/50 rounded-full transition-colors">
+                        <Users size={20} className="text-[#7D7474] shrink-0" />
+                        <span className="text-sm text-[#7D7474] font-inter font-medium">Pax</span>
+                        <span className="text-sm font-inter font-semibold text-[#7D7474] min-w-[16px] text-center">{pax}</span>
+                        <ChevronDown size={14} className="text-[#7D7474]" />
                       </button>
-                      <button onClick={() => setPax((p) => Math.max(1, p - 1))} className="text-[#7D7474] hover:text-primary transition-colors" aria-label="Decrease pax">
-                        <ChevronDown size={14} />
-                      </button>
-                    </div>
-                    <span className="text-sm font-inter font-semibold text-[#7D7474] min-w-[16px] text-center">{pax}</span>
-                  </div>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-3 z-50" align="start">
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => setPax((p) => Math.max(1, p - 1))}
+                          className="h-8 w-8 rounded-full border border-border text-[#7D7474] font-semibold hover:bg-muted/50 transition-colors"
+                          aria-label="Decrease pax"
+                        >
+                          -
+                        </button>
+                        <span className="min-w-[20px] text-center text-sm font-inter font-semibold text-[#7D7474]">{pax}</span>
+                        <button
+                          onClick={() => setPax((p) => p + 1)}
+                          className="h-8 w-8 rounded-full border border-border text-[#7D7474] font-semibold hover:bg-muted/50 transition-colors"
+                          aria-label="Increase pax"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
 
                   {/* Inquiry Now Button */}
                   <Button className="rounded-full px-8 py-3 text-base font-inter font-semibold ml-2">
@@ -245,7 +270,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B] inline-block"
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220] inline-block"
               >
                 ABOUT US
               </motion.span>
@@ -287,7 +312,7 @@ export default function HomePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 1.1 }}
-                    className="px-8 py-3 border-2 border-[#FBB03B] bg-[#FBB03B] text-white font-inter font-semibold rounded-full hover:bg-[#FBB03B]/90 transition-colors"
+                    className="px-8 py-3 border-2 border-[#F58220] bg-[#F58220] text-white font-inter font-semibold rounded-full hover:bg-[#F58220]/90 transition-colors"
                   >
                     Explore Our Tours
                   </motion.button>
@@ -299,7 +324,7 @@ export default function HomePage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 1.2 }}
-                    className="px-8 py-3 border-2 border-[#FBB03B] text-[#FBB03B] font-inter font-semibold rounded-full hover:bg-[#FBB03B] hover:text-white transition-colors"
+                    className="px-8 py-3 border-2 border-[#F58220] text-[#F58220] font-inter font-semibold rounded-full hover:bg-[#F58220] hover:text-white transition-colors"
                   >
                     Explore Sri Lankan Destinations
                   </motion.button>
@@ -343,7 +368,7 @@ export default function HomePage() {
                 className="object-cover rounded-[2rem]"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60 rounded-[2rem]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,176,59,0.35),transparent_45%)] rounded-[2rem]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,130,32,0.35),transparent_45%)] rounded-[2rem]" />
 
               <div className="relative z-10 h-full px-6 py-10 md:px-10 md:py-12 lg:px-14">
 
@@ -392,7 +417,7 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B] inline-block"
+                  className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220] inline-block"
                 >
                   MUST VISIT DESTINATIONS
                 </motion.span>
@@ -459,13 +484,14 @@ export default function HomePage() {
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-transparent" />
-                    <div className="absolute bottom-3 left-3 right-3 p-3 bg-white/20 backdrop-blur-md rounded-xl">
+                    {/* Info section */}
+                    <div className="absolute bottom-3 left-3 right-3 p-3 bg-white/20 backdrop-blur-md rounded-xl overflow-hidden h-[52px] group-hover:h-[84px] transition-all duration-300">
                       <h3 className="text-white text-xl font-inter font-medium">
                         {destination.name}
                       </h3>
                       <a
                         href={destination.link}
-                        className="inline-flex items-center text-white text-xs font-inter font-regular hover:text-[#FBB03B] transition-colors mt-2"
+                        className="inline-flex items-center text-white text-xs font-inter font-regular hover:text-[#F58220] mt-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
                       >
                         SEE MORE <ArrowRight size={14} className="ml-2" />
                       </a>
@@ -486,7 +512,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]"
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220]"
               >
                 WHY CHOOSE US
               </motion.span>
@@ -502,7 +528,7 @@ export default function HomePage() {
             </div>
 
             {/* 5 Cards Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {homeData.whyChooseUs.map((item, index) => {
                 const iconComponents = {
                   UserPen,
@@ -523,8 +549,8 @@ export default function HomePage() {
                     className="text-center"
                   >
                     <div className="w-16 h-16 mx-auto mb-4 bg-white border rounded-full shadow-lg flex items-center justify-center">
-                      <div className="w-12 h-12 bg-[#FBB03B]/40 rounded-full flex items-center justify-center">
-                        <IconComponent className="text-[#FBB03B]" size={24} />
+                      <div className="w-12 h-12 bg-[#F58220]/40 rounded-full flex items-center justify-center">
+                        <IconComponent className="text-[#F58220]" size={24} />
                       </div>
                     </div>
                     <h3 className="font-inter text-lg font-semibold text-[#423939] mb-2">{item.title}</h3>
@@ -535,7 +561,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Why Choose Us */}
+        {/* Popular Packages */}
         <section className="py-16 md:py-20 -mt-10">
           <div className="container mx-auto">
             <div className="animate-on-scroll mb-12 text-center">
@@ -544,7 +570,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]"
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220]"
               >
                 EXPLORE POPULAR PACKAGES
               </motion.span>
@@ -576,7 +602,7 @@ export default function HomePage() {
                   transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                   onClick={() => setActiveTab(tab)}
                   className={`px-6 py-2 rounded-full text-sm font-inter font-semibold transition-colors border ${activeTab === tab
-                    ? "bg-[#FBB03B] text-white border-[#FBB03B]"
+                    ? "bg-[#F58220] text-white border-[#F58220]"
                     : "bg-transparent text-[#717171] border-border hover:border-[#717171] hover:text-primary"
                     }`}
                 >
@@ -606,7 +632,7 @@ export default function HomePage() {
                         {tour.rating}
                       </div>
                       {/* Duration badge */}
-                      <div className="absolute bottom-3 right-3 bg-white/18 backdrop-blur-sm text-white text-xs font-inter font-semibold px-3 py-1.5 rounded-full border border-white/30">
+                      <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-sm text-white text-xs font-inter font-semibold px-3 py-1.5 rounded-full border border-white/30">
                         {tour.duration}
                       </div>
                     </div>
@@ -660,7 +686,7 @@ export default function HomePage() {
                 transition={{ duration: 0.7, ease: "easeOut" }}
                 className="animate-on-scroll-left"
               >
-                <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]">ADVENTURES</span>
+                <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220]">ADVENTURES</span>
                 <h2 className="mt-5 font-inter text-3xl font-semibold text-[#4B485B] md:text-5xl">
                   Uncharted Expeditions Thrilling Adventures Await!
                 </h2>
@@ -731,7 +757,7 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/5 to-transparent" />
               </div>
-              <div className="pointer-events-none absolute -left-20 -top-24 h-64 w-64 rounded-full bg-[#FBB03B]/15 blur-3xl" />
+              <div className="pointer-events-none absolute -left-20 -top-24 h-64 w-64 rounded-full bg-[#F58220]/15 blur-3xl" />
               <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[#4B485B]/10 blur-3xl" />
 
               <div className="relative grid lg:grid-cols-2 gap-10 items-start">
@@ -742,7 +768,7 @@ export default function HomePage() {
                   transition={{ duration: 0.7, ease: 'easeOut' }}
                   className="animate-on-scroll-left lg:max-w-lg"
                 >
-                  <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]">FAQ</span>
+                  <span className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220]">FAQ</span>
                   <h2 className="mt-6 font-inter text-3xl font-semibold leading-tight text-[#4B485B] md:text-5xl">
                     Frequently Asked Questions
                   </h2>
@@ -767,19 +793,12 @@ export default function HomePage() {
                         aria-expanded={isOpen}
                         className={`w-full text-left rounded-2xl border p-5 transition-all duration-300 ${
                           isOpen
-                            ? 'bg-white shadow-lg border-[#FBB03B]/40'
-                            : 'bg-white/75 backdrop-blur-sm border-[#7D7474]/20 hover:bg-white hover:shadow-md'
+                            ? 'bg-white'
+                            : 'bg-white/75 backdrop-blur-sm hover:bg-white hover:shadow-md'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-4">
                           <span className="text-base md:text-lg font-inter font-medium text-[#1E1E1E] leading-snug">{q.question}</span>
-                          <span className={`mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-sm transition-all duration-300 ${
-                            isOpen
-                              ? 'border-[#FBB03B]/40 bg-[#FBB03B]/20 text-[#4B485B]'
-                              : 'border-[#7D7474]/30 bg-white text-[#7D7474]'
-                          }`}>
-                            {isOpen ? '−' : '+'}
-                          </span>
                         </div>
 
                         <div className={`grid transition-all duration-300 ease-out ${isOpen ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0 mt-0'}`}>
@@ -805,7 +824,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#FBB03B]"
+                className="text-sm font-inter font-semibold uppercase tracking-widest text-[#F58220]"
               >
                 TESTIMONIALS
               </motion.span>
@@ -822,14 +841,14 @@ export default function HomePage() {
             <div className="relative">
               <button
                 onClick={prevTestimonial}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/50 backdrop-blur-sm border border-black/30 text-[#1E1E1E] transition-colors hover:bg-black/5"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft size={20} />
               </button>
               <button
                 onClick={nextTestimonial}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/50 backdrop-blur-sm border border-black/30 text-[#1E1E1E] transition-colors hover:bg-black/5"
                 aria-label="Next testimonial"
               >
                 <ChevronRight size={20} />
@@ -842,7 +861,7 @@ export default function HomePage() {
                   }}
                 >
                   {homeData.testimonials.map((t, i) => (
-                    <div key={i} className={`p-6 rounded-2xl bg-white border text-left animate-on-scroll transition-all duration-300 flex-shrink-0 w-[98%] md:w-[48%] lg:w-[31%] ${i === testimonialIndex ? "border-primary shadow-lg" : "border-border/20"}`}>
+                    <div key={i} className={`p-6 rounded-2xl bg-white border shadow-lg text-left animate-on-scroll transition-all duration-300 flex-shrink-0 w-[98%] md:w-[48%] lg:w-[31%] ${i === testimonialIndex ? "border-primary" : "border-border/20"}`}>
                       <div className="flex items-center gap-3 mb-4">
                         {t.profileImage ? (
                           <div className="h-12 w-12 rounded-full overflow-hidden">

@@ -184,7 +184,7 @@ export default function ContactPage() {
                       />
                     </div>
                     <div className="relative">
-                      <select className="w-full bg-white/40 backdrop-blur-md border border-white/40 rounded-full px-5 py-3 text-white appearance-none focus:outline-none focus:border-[#FBB03B]/40 transition-all cursor-pointer">
+                      <select className="w-full bg-white/40 backdrop-blur-md border border-white/40 rounded-full px-5 py-3 text-white appearance-none focus:outline-none focus:border-[#F58220]/40 transition-all cursor-pointer">
                         <option className="text-gray-800">{formFields.subject}</option>
                         {formSubjects.map((subject, index) => (
                           <option key={index} className="text-gray-800">
@@ -197,12 +197,12 @@ export default function ContactPage() {
                     <textarea
                       rows={5}
                       placeholder={formFields.message}
-                      className="w-full bg-white/40 backdrop-blur-md border border-white/40 rounded-3xl px-5 py-4 text-white placeholder-white/70 focus:outline-none focus:border-[#FBB03B]/40 transition-all resize-none"
+                      className="w-full bg-white/40 backdrop-blur-md border border-white/40 rounded-3xl px-5 py-4 text-white placeholder-white/70 focus:outline-none focus:border-[#F58220]/40 transition-all resize-none"
                     />
 
                     <button
                       type="button"
-                      className="w-full bg-[#FBB03B] font-inter font-semibold text-white py-4 rounded-full hover:bg-[#FBB03B]/90 transition-colors duration-300 shadow-lg mt-2"
+                      className="w-full bg-[#F58220] font-inter font-semibold text-white py-4 rounded-full hover:bg-[#F58220]/90 transition-colors duration-300 shadow-lg mt-2"
                     >
                       {formFields.submitButton}
                     </button>
@@ -244,7 +244,7 @@ export default function ContactPage() {
                   <ul className="space-y-4">
                     {benefits.map((item, index) => (
                       <li key={index} className="flex items-center space-x-3">
-                        <CheckCircle className="w-6 h-6 text-[#f59e0b] flex-shrink-0" />
+                        <CheckCircle className="w-6 h-6 text-[#F58220] flex-shrink-0" />
                         <span className="text-[#141414] font-inter font-medium">
                           {item}
                         </span>
