@@ -9,8 +9,7 @@ import { Footer } from '../components/Footer';
 import { getTourById } from '../lib/toursData';
 import { Popover, PopoverTrigger, PopoverContent } from '../components/ui/Popover';
 import { Button } from '../components/ui/Button';
-import { Calendar } from '../components/ui/Calendar';
-import { cn } from '../lib/utils';
+import ReactCalendar from 'react-calendar';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -515,13 +514,15 @@ function TourInfoContent() {
                         <ChevronDown size={14} className="text-white ml-auto" />
                       </button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 z-50" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={checkIn}
-                        onSelect={(date) => setCheckIn(Array.isArray(date) ? date[0] : date)}
-                        initialFocus
-                        className={cn("p-3 pointer-events-auto")}
+                    <PopoverContent className="w-auto p-0 z-50 bg-transparent border-none shadow-none" align="start">
+                      <ReactCalendar
+                        onChange={(value) => {
+                          if (value instanceof Date) {
+                            setCheckIn(value);
+                          }
+                        }}
+                        value={checkIn ?? null}
+                        className="custom-calendar"
                       />
                     </PopoverContent>
                   </Popover>
@@ -540,13 +541,15 @@ function TourInfoContent() {
                         <ChevronDown size={14} className="text-white ml-auto" />
                       </button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 z-50" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={checkOut}
-                        onSelect={(date) => setCheckOut(Array.isArray(date) ? date[0] : date)}
-                        initialFocus
-                        className={cn("p-3 pointer-events-auto")}
+                    <PopoverContent className="w-auto p-0 z-50 bg-transparent border-none shadow-none" align="start">
+                      <ReactCalendar
+                        onChange={(value) => {
+                          if (value instanceof Date) {
+                            setCheckOut(value);
+                          }
+                        }}
+                        value={checkOut ?? null}
+                        className="custom-calendar"
                       />
                     </PopoverContent>
                   </Popover>
